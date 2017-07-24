@@ -4,7 +4,7 @@ import os
 import jinja2
 from google.appengine.api import users
 from google.appengine.ext import ndb
-jinja_environment = jinja2.Environment(
+jinja_environment = jinja2.Environment
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 class Post(ndb.Model):
@@ -24,6 +24,13 @@ app = webapp2.WSGIApplication([
 
 class PostHandler(webapp2.RequestHandler):
     def get(self):
+        #1. Get information from the request
+        urlsafe_key = self.request.get("key")
+
+        #2. Pulling the post from the database
+        post_key = ndb.Key(urlsafe = urlsafe_key)
+        post = post_key.get()
+        
         template_vars = {
             "post": post,
         }
