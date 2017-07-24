@@ -2,8 +2,10 @@
 import webapp2
 import os
 import jinja2
+
 from google.appengine.api import users
 from google.appengine.ext import ndb
+
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
@@ -15,6 +17,9 @@ class Post(ndb.Model):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        meme = ndb.StringProperty()
+        post_time = ndb.DateTimeProperty(auto_now_add=True)
+        
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render())
 
