@@ -12,12 +12,20 @@ class Post(ndb.Model):
     post_time = ndb.DateTimeProperty(auto_now_add=True)
     title = ndb.StringProperty()
     content = ndb.StringProperty()
+    school = ndb.StringProperty()
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render())
 
+class NewPostHandler(webapp2.RequestHandler):
+    def get(self):
+
+        template = jinja_environment.get_template('templates/new_post.html')
+        self.response.write(template.render())
+
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/new_post', NewPostHandler)
 ], debug=True)
