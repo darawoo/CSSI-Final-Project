@@ -21,14 +21,9 @@ class MainHandler(webapp2.RequestHandler):
 
 class NewPostHandler(webapp2.RequestHandler):
     def get(self):
-
         template = jinja_environment.get_template('templates/new_post.html')
         self.response.write(template.render())
 
-app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/new_post', NewPostHandler)
-], debug=True)
 
 class PostHandler(webapp2.RequestHandler):
     def get(self):
@@ -37,3 +32,8 @@ class PostHandler(webapp2.RequestHandler):
         }
         template = jinja_environment.get_template("templates/post.html")
         self.response.write(template.render(template_vars))
+
+app = webapp2.WSGIApplication([
+    ('/', MainHandler),
+    ('/new_post', NewPostHandler)
+], debug=True)
