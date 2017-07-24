@@ -7,7 +7,11 @@ from google.appengine.ext import ndb
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-
+class Post(ndb.Model):
+    user = ndb.StringProperty()
+    post_time = ndb.DateTimeProperty(auto_now_add=True)
+    title = ndb.StringProperty()
+    content = ndb.StringProperty()
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
