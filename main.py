@@ -2,6 +2,7 @@
 import webapp2
 import os
 import jinja2
+
 from google.appengine.api import users
 from google.appengine.ext import ndb
 jinja_environment = jinja2.Environment
@@ -16,8 +17,11 @@ class Post(ndb.Model):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        post_query = Post.query().order(-Post.post_time)
+        posts = post_query.fetch()
+
         template = jinja_environment.get_template('templates/home.html')
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class NewPostHandler(webapp2.RequestHandler):
     def get(self):
