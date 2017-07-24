@@ -17,11 +17,11 @@ class Post(ndb.Model):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        meme = ndb.StringProperty()
-        post_time = ndb.DateTimeProperty(auto_now_add=True)
-        
+        post_query = Post.query().order(-Post.post_time)
+        posts = post_query.fetch()
+    
         template = jinja_environment.get_template('templates/home.html')
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
