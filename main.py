@@ -5,7 +5,7 @@ import jinja2
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
-jinja_environment = jinja2.Environment
+jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 class Post(ndb.Model):
