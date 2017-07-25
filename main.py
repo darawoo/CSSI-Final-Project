@@ -18,7 +18,6 @@ class Post(ndb.Model):
     post_img_url = ndb.StringProperty()
     like_count = ndb.IntegerProperty(default=0)
     view_count = ndb.IntegerProperty(default=0)
-    recent_views = ndb.IntegerProperty(default=0)
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()
@@ -30,11 +29,16 @@ class Like(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
 
-class Views(ndb.Model):
+class View(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
     view_time = ndb.DateTimeProperty(auto_now_add=True)
     trending = ndb.IntegerProperty()
+
+class RecentViews(ndb.Model):
+    view_key =ndb.KeyProperty(kind=View)
+    recent_views = ndb.IntegerProperty
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -44,6 +48,10 @@ class MainHandler(webapp2.RequestHandler):
         current_user = users.get_current_user()
         login_url = users.create_login_url('/')
         logout_url = users.create_logout_url('/')
+        #===trending calculations===
+
+
+
         template_vars = {
             "posts": posts,
             "current_user": current_user,
@@ -82,14 +90,18 @@ class PostHandler(webapp2.RequestHandler):
         #Get the number of likes, filter them by post key
         #likes = Like.query().filter(Like.post_key == post_key).fetch()
 
-        #view counter
+        #==view counter==
         post.view_count += 1
         post.put()
-        #trending
+        views = View.query().fetch()
+        view = View(user=current_user.email(), post_key=post_key)
+        view.put()
+        #========================
         template_vars = {
             "post": post,
             "comments": comments,
-            "current_user": current_user
+            "current_user": current_user,
+            'views': views
         }
         template = jinja_environment.get_template("templates/post.html")
         self.response.write(template.render(template_vars))
