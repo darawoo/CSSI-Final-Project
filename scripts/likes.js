@@ -6,19 +6,19 @@ function clickLike() {
   // element that corresponds to the clicked button.
 
   // Look through parents of this to find .photo.
-  var photo = $(this).parents('.photo');
+  var post = $(this).parents('.post');
 
   // Look inside photo to find .likes.
-  var likes = $(photo).find('.likes');
+  var likes = $(post).find('.likes');
 
   // Get the URLsafe key from the button value.
   var urlsafeKey = $(button).val();
 
   // Send a POST request and handle the response.
-  $.post('/likes', {'photo_key': urlsafeKey}, function(response) {
+  $.post('/like', {'post_key': urlsafeKey}, function(response) {
     // Update the number in the "like" element.
     $(likes).text(response);
   });
 }
 
-$('.photo button').click(clickLike);
+$('.post button').click(clickLike);

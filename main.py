@@ -25,15 +25,12 @@ class Comment(ndb.Model):
     post_time = ndb.DateTimeProperty(auto_now_add = True)
     post_key = ndb.KeyProperty(kind=Post)
 
-class Like(ndb.Model):
-    user = ndb.StringProperty()
-    post_key = ndb.KeyProperty(kind=Post)
-
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         post_query = Post.query()
         posts = post_query.fetch()
+
         current_user = users.get_current_user()
         login_url = users.create_login_url('/')
         logout_url = users.create_logout_url('/')
@@ -73,17 +70,15 @@ class PostHandler(webapp2.RequestHandler):
         #query, fetch, and filter the comments
         comments = Comment.query().filter(Comment.post_key == post_key).order(Comment.post_time).fetch()
         #Get the number of likes, filter them by post key
-        likes = Like.query().filter(Like.post_key == post_key).fetch()
-        num_likes = 0
-        for like in likes:
-            num_likes += 1
+        #likes = Like.query().filter(Like.post_key == post_key).fetch()
+
         #view counter
         post.view_count += 1
         post.put()
         template_vars = {
             "post": post,
             "comments": comments,
-            "num_likes": num_likes,
+            "like_count": post.like_count,
             "current_user": current_user
         }
         template = jinja_environment.get_template("templates/post.html")
@@ -108,25 +103,25 @@ class NewCommentHandler(webapp2.RequestHandler):
 
 class LikeHandler(webapp2.RequestHandler):
     def post(self):
-        user = ndb.StringProperty()
-        numLikes = ndb.IntegerProperty()
+
         #1. Getting information from the request
-        user = users.get_current_user().email()
         urlsafe_key = self.request.get("post_key")
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
 
-        if photo.like_count == None:
-            photo.like_count = 0
+        if post.like_count == None:
+            post.like_count = 0
 
          # Increase the photo count and update the database.
-        photo.like_count = photo.like_count + 1
-        photo.put()
+        
+        post.like_count = post.like_count + 1
+        post.put()
 
         # === 3: Send a response. ===
         # Send the updated count back to the client.
-        self.response.write(photo.like_count)
+        url = "/post?key=" + post.key.urlsafe()
+        self.redirect(url)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler),
