@@ -24,7 +24,6 @@ class Comment(ndb.Model):
 
 class Like(ndb.Model):
     user = ndb.StringProperty()
-    #numLikes = ndb.IntegerProperty()
     post_key = ndb.KeyProperty(kind=Post)
 
 class MainHandler(webapp2.RequestHandler):
