@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
-      <style>
-              body {
-                    background-color: pink
-                  }
-</style>
+
     <head>
         <meta charset="utf-8">
             <title> STAND BY MEME </title>
+            <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
   </head>
   <body>
 <!--Login/Logout-->
@@ -24,7 +21,7 @@
      <article>
        <br>
        <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}"></a>
-      <h5>{{post.user}}</h5>
+      <h5>By: {{post.user}}</h5>
       </article>
     {% endfor %}
   </body>
