@@ -18,6 +18,7 @@ class Post(ndb.Model):
     post_img_url = ndb.StringProperty()
     like_count = ndb.IntegerProperty(default=0)
     view_count = ndb.IntegerProperty(default=0)
+    recent_views = ndb.IntegerProperty(default=0)
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()
@@ -28,6 +29,12 @@ class Comment(ndb.Model):
 class Like(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
+
+class Views(ndb.Model):
+    user = ndb.StringProperty()
+    post_key = ndb.KeyProperty(kind=Post)
+    view_time = ndb.DateTimeProperty(auto_now_add=True)
+    trending = ndb.IntegerProperty()
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -80,6 +87,7 @@ class PostHandler(webapp2.RequestHandler):
         #view counter
         post.view_count += 1
         post.put()
+        #trending
         template_vars = {
             "post": post,
             "comments": comments,
