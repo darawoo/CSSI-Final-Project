@@ -17,6 +17,7 @@ class Post(ndb.Model):
     school = ndb.StringProperty()
     post_img_url = ndb.StringProperty()
     like_count = ndb.IntegerProperty(default=0)
+    view_count = ndb.IntegerProperty(default=0)
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()
@@ -27,6 +28,7 @@ class Comment(ndb.Model):
 class Like(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -76,7 +78,8 @@ class PostHandler(webapp2.RequestHandler):
         num_likes = 0
         for like in likes:
             num_likes += 1
-
+        post.view_count += 1
+        post.put()
         template_vars = {
             "post": post,
             "comments": comments,
