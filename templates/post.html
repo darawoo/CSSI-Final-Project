@@ -19,6 +19,7 @@
 {% endif %}
 
 <h2>Views: {{post.view_count}}</h2>
+<h2>Likes: {{num_likes}}<h2>
 
 <h2>Comments on this post</h2>
   {% for comment in comments %}
@@ -28,7 +29,7 @@
     <br><br>
   {% endfor %}
 
-  <h2>Likes: {{num_likes}}<h2>
+
 
 {% if current_user %}
 <form action = "/new_comment" method="post">

@@ -66,7 +66,6 @@ class PostHandler(webapp2.RequestHandler):
     def get(self):
         #1. Get information from the request
         urlsafe_key = self.request.get("key")
-
         #2. Pulling the post from the database
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
@@ -78,6 +77,7 @@ class PostHandler(webapp2.RequestHandler):
         num_likes = 0
         for like in likes:
             num_likes += 1
+        #view counter
         post.view_count += 1
         post.put()
         template_vars = {
