@@ -8,19 +8,20 @@
   </head>
   <body>
 <!--Login/Logout-->
+
 {% if current_user %}
-  <p class='welcome'>Welcome, {{current_user}}!</p>
+  <div class="welcome"><p>Welcome,<br>{{current_user}}!<br>
+  <a href="{{logout_url}}" class="log">Logout</a></div>
   <a href="/new_post">ADD NEW POST</a>
-  <a href="{{logout_url}}" class="log">Logout</a>
 {% else %}
-  <a href="{{login_url}}" class="welcome">Login</a>
+  <span class="welcome"><a href="{{login_url}}" class="welcome">Login</a></span>
 {% endif %}
 
 
     {% for post in posts %}
-     <article>
+     <article class="post_home">
        <br>
-       <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}"></a>
+       <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
       <h5>By: {{post.user}}</h5>
       </article>
     {% endfor %}

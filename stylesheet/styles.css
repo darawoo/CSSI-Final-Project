@@ -1,3 +1,21 @@
 body {
-      background-color: pink
+      background-color: #d7d8a9;
     }
+.welcome {
+  position: absolute;
+  right: .5%;
+  top: .5%;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+  text-align: center;
+}
+.post_home {
+  border-style: ridge;
+  text-align: center;
+  width: 30%
+}
+.home_img {
+  width: 98%;
+  height: 98%;
+}
