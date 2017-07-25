@@ -35,9 +35,10 @@ class NewPostHandler(webapp2.RequestHandler):
     def post(self):
         title = self.request.get('title')
         caption = self.request.get('caption')
+        post_img_url = self.request.get('post_img_url')
         user = users.get_current_user().email()
         if title != "":
-            post = Post(user=user, title=title, caption=caption)
+            post = Post(user=user, title=title, caption=caption, post_img_url=post_img_url)
             post.put()
         self.redirect('/')
 
