@@ -90,21 +90,15 @@ class NewCommentHandler(webapp2.RequestHandler):
     def post(self):
         user = ndb.StringProperty()
         content = ndb.StringProperty()
-
         #1. Getting information from the request
         user = users.get_current_user().email()
         content = self.request.get("content")
         urlsafe_key = self.request.get("post_key")
-
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
-
-
-
         #3. Creating Post
         comment = Comment(user=user,content=content, post_key=post_key)
-
         comment.put()
         url = "/post?key=" + post.key.urlsafe()
         self.redirect(url)
@@ -113,19 +107,14 @@ class LikeHandler(webapp2.RequestHandler):
     def post(self):
         user = ndb.StringProperty()
         numLikes = ndb.IntegerProperty()
-
         #1. Getting information from the request
         user = users.get_current_user().email()
         urlsafe_key = self.request.get("post_key")
-
-
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
-
         #3. Adding Like
         like = Like(user=user, post_key=post_key)
-
         like.put()
         url = "/post?key=" + post.key.urlsafe()
         self.redirect(url)
