@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <style>
-body {
-  background-color: pink
-}
-  </style>
-  <head>
-
-    <title>STAND BY MEME</title>
+      <style>
+              body {
+                    background-color: pink
+                  }
+</style>
+    <head>
+        <meta charset="utf-8">
+            <title> STAND BY MEME </title>
   </head>
   <body>
+
+     HELLLOOOOO
+
     {% for post in posts %}
-      <article>
+     <article>
         <h2>{{post.title}}</a></h2>
         <h6>By {{post.user}}
         <br><img src="{{post.post_img_url}}"></h6>
         <p>{{post.caption}}</p>
+        <p href="new_post" Submit>
+          ADD NEW POST
+        <p>
       </article>
     {% endfor %}
-
-
   </body>
 </html>
