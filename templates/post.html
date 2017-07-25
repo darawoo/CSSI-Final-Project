@@ -11,15 +11,14 @@
   <img src = "{{post.post_img_url}}">
 </p>
 
-{% if current_user %}
+
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
   <button>Like</button>
 </form>
-{% endif %}
 
 <h2>Views: {{post.view_count}}</h2>
-<h2>Likes: {{num_likes}}<h2>
+<h2>Likes: {{post.like_count}}<h2>
 
 <h2>Comments on this post</h2>
   {% for comment in comments %}
@@ -28,8 +27,6 @@
     Posted on {{comment.post_time.strftime("%b %d, %Y")}}
     <br><br>
   {% endfor %}
-
-  <h2>Likes: {{like_count}}<h2>
 
 {% if current_user %}
 <form action = "/new_comment" method="post">

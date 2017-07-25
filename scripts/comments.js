@@ -1,4 +1,4 @@
-function clickLike() {
+function leaveComment() {
   // Here, "this" is the button that the user clicked.
   var button = $(this);
 
@@ -9,16 +9,16 @@ function clickLike() {
   var post = $(this).parents('.post');
 
   // Look inside photo to find .likes.
-  var likes = $(post).find('.likes');
+  var comments = $(post).find('.comments');
 
   // Get the URLsafe key from the button value.
   var urlsafeKey = $(button).val();
 
   // Send a POST request and handle the response.
-  $.post('/like', {'post_key': urlsafeKey}, function(response) {
+  $.post('/new_comment', {'post_key': urlsafeKey}, function(response) {
     // Update the number in the "like" element.
-    $(likes).text(response);
+    $(comments).text(response);
   });
 }
 
-$('.post button').click(clickLike);
+$('.post button').click(leaveComment);
