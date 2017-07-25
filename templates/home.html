@@ -11,17 +11,11 @@
   </head>
   <body>
 
-     HELLLOOOOO
-     <a href="/new_post">
-       ADD NEW POST
-     </a>
+     <a href="/new_post">ADD NEW POST</a>
     {% for post in posts %}
      <article>
-        <h2>{{post.title}}</a></h2>
-        <h6>By {{post.user}}
-        <br><img src="{{post.post_img_url}}"></h6>
-        <p>{{post.caption}}</p>
-
+       <img src="{{post.post_img_url}}"></h6>
+      <h6>By {{post.user}}</h6>
       </article>
     {% endfor %}
   </body>
