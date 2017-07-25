@@ -11,11 +11,17 @@ body {
   text-align: center;
 }
 .post_home {
-  border-style: ridge;
+  border-style: hidden;
   text-align: center;
-  width: 30%
+  width: 20%
 }
 .home_img {
   width: 98%;
   height: 98%;
+}
+
+#post-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
