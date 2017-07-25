@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html>
+<title>Stand By Meme</title>
+<link rel="stylesheet" href="/stylesheet/styles.css">
 
-    <head>
-        <meta charset="utf-8">
-            <title> STAND BY MEME </title>
-            <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
-  </head>
-  <body>
+<h1>Stand By Meme</h1>
 
 <!--Login/Logout-->
 
@@ -18,13 +14,15 @@
   <span class="welcome"><a href="{{login_url}}" class="welcome">Login</a></span>
 {% endif %}
 
-
-    {% for post in posts %}
-     <article class="post_home">
-       <br>
-       <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
+<div id = "post-container">
+  {% for post in posts %}
+    <article class="post_home">
+      <br>
+      <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
       <h5>By: {{post.user}}</h5>
-      </article>
-    {% endfor %}
-  </body>
-</html>
+    </article>
+  {% endfor %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/scripts/photogram.js"></script>

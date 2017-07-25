@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
 
-
 <div class="home"><a href="/"><h2>Home<h2></a></div>
 
 <title>STAND BY MEME</title>
@@ -11,6 +10,7 @@
 <p>
   <img src = "{{post.post_img_url}}">
 </p>
+
 {% if current_user %}
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
@@ -29,7 +29,7 @@
     <br><br>
   {% endfor %}
 
-
+  <h2>Likes: {{like_count}}<h2>
 
 {% if current_user %}
 <form action = "/new_comment" method="post">

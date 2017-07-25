@@ -116,11 +116,17 @@ class LikeHandler(webapp2.RequestHandler):
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
-        #3. Adding Like
-        like = Like(user=user, post_key=post_key)
-        like.put()
-        url = "/post?key=" + post.key.urlsafe()
-        self.redirect(url)
+
+        if photo.like_count == None:
+            photo.like_count = 0
+
+         # Increase the photo count and update the database.
+        photo.like_count = photo.like_count + 1
+        photo.put()
+
+        # === 3: Send a response. ===
+        # Send the updated count back to the client.
+        self.response.write(photo.like_count)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler),
