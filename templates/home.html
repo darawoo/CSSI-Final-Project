@@ -20,11 +20,6 @@
       <br>
       <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
       <h5>By: {{post.user}}</h5>
-
-      <div class="like-container">
-        <button value="{{post.key.urlsafe()}}">Like</button>
-        <span class="likes">{{ post.like_count }}</span> likes
-      </div>
     </article>
   {% endfor %}
 </div>

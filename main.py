@@ -25,6 +25,9 @@ class Comment(ndb.Model):
     post_time = ndb.DateTimeProperty(auto_now_add = True)
     post_key = ndb.KeyProperty(kind=Post)
 
+class Like(ndb.Model):
+    user = ndb.StringProperty()
+    post_key = ndb.KeyProperty(kind=Post)
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -78,7 +81,6 @@ class PostHandler(webapp2.RequestHandler):
         template_vars = {
             "post": post,
             "comments": comments,
-            "like_count": post.like_count,
             "current_user": current_user
         }
         template = jinja_environment.get_template("templates/post.html")
@@ -103,7 +105,8 @@ class NewCommentHandler(webapp2.RequestHandler):
 
 class LikeHandler(webapp2.RequestHandler):
     def post(self):
-
+        user = ndb.StringProperty()
+        user = users.get_current_user().email()
         #1. Getting information from the request
         urlsafe_key = self.request.get("post_key")
         #2. Interacting with our Database and APIs
@@ -114,7 +117,7 @@ class LikeHandler(webapp2.RequestHandler):
             post.like_count = 0
 
          # Increase the photo count and update the database.
-        
+
         post.like_count = post.like_count + 1
         post.put()
 

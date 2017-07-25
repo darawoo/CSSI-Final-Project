@@ -28,8 +28,6 @@
     <br><br>
   {% endfor %}
 
-  <h2>Likes: {{like_count}}<h2>
-
 {% if current_user %}
 <form action = "/new_comment" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
