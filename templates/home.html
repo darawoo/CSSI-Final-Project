@@ -15,8 +15,8 @@
     {% for post in posts %}
      <article>
        <br>
-       <img src="{{post.post_img_url}}"></h6>
-      <h5><a href = "/post?key={{post.key.urlsafe()}}">{{post.user}}</a></h5>
+       <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}"></a>
+      <h5>{{post.user}}</h5>
       </article>
     {% endfor %}
   </body>

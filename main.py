@@ -24,7 +24,7 @@ class Comment(ndb.Model):
 
 class Like(ndb.Model):
     user = ndb.StringProperty()
-    numLikes = ndb.IntegerProperty()
+    #numLikes = ndb.IntegerProperty()
     post_key = ndb.KeyProperty(kind=Post)
 
 class MainHandler(webapp2.RequestHandler):
@@ -61,13 +61,18 @@ class PostHandler(webapp2.RequestHandler):
         #2. Pulling the post from the database
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
-
-        comment_query = Comment.query()
-        comments = comment_query.fetch()
+        #query, fetch, and filter the comments
+        comments = Comment.query().filter(Comment.post_key == post_key).order(Comment.post_time).fetch()
+        #Get the number of likes, filter them by post key
+        likes = Like.query().filter(Like.post_key == post_key).fetch()
+        num_likes = 0
+        for like in likes:
+            num_likes += 1
 
         template_vars = {
             "post": post,
-            "comments": comments
+            "comments": comments,
+            "num_likes": num_likes
         }
         template = jinja_environment.get_template("templates/post.html")
         self.response.write(template.render(template_vars))
@@ -86,6 +91,8 @@ class NewCommentHandler(webapp2.RequestHandler):
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
 
+
+
         #3. Creating Post
         comment = Comment(user=user,content=content, post_key=post_key)
 
@@ -99,16 +106,16 @@ class LikeHandler(webapp2.RequestHandler):
         numLikes = ndb.IntegerProperty()
 
         #1. Getting information from the request
-        user = self.request.get("user")
-        content = self.request.get("content")
+        user = users.get_current_user().email()
         urlsafe_key = self.request.get("post_key")
+
 
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
 
         #3. Creating Post
-        like = Like(user=user,numLikes=numLikes, post_key=post_key)
+        like = Like(user=user, post_key=post_key)
 
         like.put()
         url = "/post?key=" + post.key.urlsafe()
