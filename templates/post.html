@@ -1,0 +1,30 @@
+<title>{{post.title}}</title>
+<h1>{{post.title}}</h1>
+<h2>{{post.user}}</h2>
+<h4>{{post.caption}}</h4>
+
+<p>
+  <img src = "{{post.post_img_url}}">
+</p>
+
+<form action = "/like" method="post">
+  <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+  <button>Like</button>
+</form>
+
+<h2>Comments on this post</h2>
+  {% for comment in comments %}
+    <div>{{comment.content}}</div>
+    <div>Written by: {{comment.user}}</div>
+    Posted at {{comment.post_time.strftime("%b %d, %Y")}}
+    <br><br>
+  {% endfor %}
+
+<form action = "/new_comment" method="post">
+  <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+  <h2>Leave a comment</h2>
+
+  <input name = "user" placeholder="Your Name"<br><br><br>
+  <textarea name = "content" placeholder="Comment Here"></textarea><br>
+  <button>Leave a comment</button>
+</form>

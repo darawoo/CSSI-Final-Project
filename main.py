@@ -16,6 +16,17 @@ class Post(ndb.Model):
     school = ndb.StringProperty()
     post_img_url = ndb.StringProperty()
 
+class Comment(ndb.Model):
+    user = ndb.StringProperty()
+    content = ndb.StringProperty()
+    post_time = ndb.DateTimeProperty(auto_now_add = True)
+    post_key = ndb.KeyProperty(kind=Post)
+
+class Like(ndb.Model):
+    user = ndb.StringProperty()
+    numLikes = ndb.IntegerProperty()
+    post_key = ndb.KeyProperty(kind=Post)
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         post_query = Post.query()
@@ -45,18 +56,65 @@ class NewPostHandler(webapp2.RequestHandler):
 class PostHandler(webapp2.RequestHandler):
     def get(self):
         #1. Get information from the request
-        #urlsafe_key = self.request.get("key")
+        urlsafe_key = self.request.get("key")
 
         #2. Pulling the post from the database
-        #post_key = ndb.Key(urlsafe = urlsafe_key)
-        #post = post_key.get()
+        post_key = ndb.Key(urlsafe = urlsafe_key)
+        post = post_key.get()
 
-        #template_vars = {
-        #    "post": post,
-        #}
+        comment_query = Comment.query()
+        comments = comment_query.fetch()
+
+        template_vars = {
+            "post": post,
+            "comments": comments
+        }
         template = jinja_environment.get_template("templates/post.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
+
+class NewCommentHandler(webapp2.RequestHandler):
+    def post(self):
+        user = ndb.StringProperty()
+        content = ndb.StringProperty()
+
+        #1. Getting information from the request
+        user = self.request.get("user")
+        content = self.request.get("content")
+        urlsafe_key = self.request.get("post_key")
+
+        #2. Interacting with our Database and APIs
+        post_key = ndb.Key(urlsafe = urlsafe_key)
+        post = post_key.get()
+
+        #3. Creating Post
+        comment = Comment(user=user,content=content, post_key=post_key)
+
+        comment.put()
+        url = "/post?key=" + post.key.urlsafe()
+        self.redirect(url)
+
+class LikeHandler(webapp2.RequestHandler):
+    def post(self):
+        user = ndb.StringProperty()
+        numLikes = ndb.IntegerProperty()
+
+        #1. Getting information from the request
+        user = self.request.get("user")
+        content = self.request.get("content")
+        urlsafe_key = self.request.get("post_key")
+
+        #2. Interacting with our Database and APIs
+        post_key = ndb.Key(urlsafe = urlsafe_key)
+        post = post_key.get()
+
+        #3. Creating Post
+        like = Like(user=user,numLikes=numLikes, post_key=post_key)
+
+        like.put()
+        url = "/post?key=" + post.key.urlsafe()
+        self.redirect(url)
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler)
+    ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler),
+    ('/new_comment', NewCommentHandler), ('/like', LikeHandler)
 ], debug=True)

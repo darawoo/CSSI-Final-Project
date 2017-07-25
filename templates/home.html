@@ -14,8 +14,9 @@
      <a href="/new_post">ADD NEW POST</a>
     {% for post in posts %}
      <article>
+       <br>
        <img src="{{post.post_img_url}}"></h6>
-      <h6>By {{post.user}}</h6>
+      <h5><a href = "/post?key={{post.key.urlsafe()}}">{{post.user}}</a></h5>
       </article>
     {% endfor %}
   </body>
