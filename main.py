@@ -31,8 +31,14 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         post_query = Post.query()
         posts = post_query.fetch()
+        current_user = users.get_current_user()
+        login_url = users.create_login_url('/')
+        logout_url = users.create_logout_url('/')
         template_vars = {
-            "posts": posts
+            "posts": posts,
+            "current_user": current_user,
+            "logout_url": logout_url,
+            "login_url": login_url
         }
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
@@ -61,6 +67,7 @@ class PostHandler(webapp2.RequestHandler):
         #2. Pulling the post from the database
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
+        current_user = users.get_current_user()
         #query, fetch, and filter the comments
         comments = Comment.query().filter(Comment.post_key == post_key).order(Comment.post_time).fetch()
         #Get the number of likes, filter them by post key
@@ -72,7 +79,8 @@ class PostHandler(webapp2.RequestHandler):
         template_vars = {
             "post": post,
             "comments": comments,
-            "num_likes": num_likes
+            "num_likes": num_likes,
+            "current_user": current_user
         }
         template = jinja_environment.get_template("templates/post.html")
         self.response.write(template.render(template_vars))
@@ -83,7 +91,7 @@ class NewCommentHandler(webapp2.RequestHandler):
         content = ndb.StringProperty()
 
         #1. Getting information from the request
-        user = self.request.get("user")
+        user = users.get_current_user().email()
         content = self.request.get("content")
         urlsafe_key = self.request.get("post_key")
 
@@ -114,7 +122,7 @@ class LikeHandler(webapp2.RequestHandler):
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
 
-        #3. Creating Post
+        #3. Adding Like
         like = Like(user=user, post_key=post_key)
 
         like.put()

@@ -6,11 +6,12 @@
 <p>
   <img src = "{{post.post_img_url}}">
 </p>
-
+{% if current_user %}
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
   <button>Like</button>
 </form>
+{% endif %}
 
 <h2>Comments on this post</h2>
   {% for comment in comments %}
@@ -22,10 +23,11 @@
 
   <h2>Likes: {{num_likes}}<h2>
 
+{% if current_user %}
 <form action = "/new_comment" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
   <h2>Leave a comment</h2>
-  <input name = "user" placeholder="Your Name"<br><br><br>
   <textarea name = "content" placeholder="Comment Here"></textarea><br>
   <button>Leave a comment</button>
 </form>
+{% endif %}

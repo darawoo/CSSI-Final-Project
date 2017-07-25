@@ -10,8 +10,16 @@
             <title> STAND BY MEME </title>
   </head>
   <body>
+<!--Login/Logout-->
+{% if current_user %}
+  <p class='welcome'>Welcome, {{current_user}}!</p>
+  <a href="/new_post">ADD NEW POST</a>
+  <a href="{{logout_url}}" class="log">Logout</a>
+{% else %}
+  <a href="{{login_url}}" class="welcome">Login</a>
+{% endif %}
 
-     <a href="/new_post">ADD NEW POST</a>
+
     {% for post in posts %}
      <article>
        <br>
