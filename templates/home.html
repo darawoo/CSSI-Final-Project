@@ -4,6 +4,7 @@
         <meta charset="utf-8">
             <title> STAND BY MEME </title>
   <body>
+<<<<<<< HEAD
   <style>
      body{
        background-color: pink
@@ -13,13 +14,14 @@
      <a href="/new_post">
        ADD NEW POST
      </a>
+=======
+
+     <a href="/new_post">ADD NEW POST</a>
+>>>>>>> 9a08461eb7aa5876f3074e6fc3ee5cba6724c715
     {% for post in posts %}
      <article>
-        <h2>{{post.title}}</a></h2>
-        <h6>By {{post.user}}
-        <br><img src="{{post.post_img_url}}"></h6>
-        <p>{{post.caption}}</p>
-
+       <img src="{{post.post_img_url}}"></h6>
+      <h6>By {{post.user}}</h6>
       </article>
     {% endfor %}
   </body>

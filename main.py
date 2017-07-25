@@ -20,11 +20,10 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         post_query = Post.query()
         posts = post_query.fetch()
-        template_vars = {
-            "posts": posts
-        }
+
+
         template = jinja_environment.get_template('templates/home.html')
-        self.response.write(template.render(template_vars))
+        self.response.write(template.render())
 
 class NewPostHandler(webapp2.RequestHandler):
     def get(self):
