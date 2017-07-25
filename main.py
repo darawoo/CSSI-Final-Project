@@ -1,4 +1,5 @@
 #importing stuff
+import logging
 import webapp2
 import os
 import jinja2
@@ -15,6 +16,7 @@ class Post(ndb.Model):
     caption = ndb.StringProperty()
     school = ndb.StringProperty()
     post_img_url = ndb.StringProperty()
+    like_count = ndb.IntegerProperty(default=0)
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()
