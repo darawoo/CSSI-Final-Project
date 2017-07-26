@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
+
 <html>
     <head>
         <meta charset="utf-8">
             <title> STAND BY MEME </title>
   <body>
-<<<<<<< HEAD
   <style>
      body{
        background-color: pink
@@ -15,10 +14,9 @@
      <a href="/new_post">
        ADD NEW POST
      </a>
-=======
 
      <a href="/new_post">ADD NEW POST</a>
->>>>>>> 9a08461eb7aa5876f3074e6fc3ee5cba6724c715
+
     {% for post in posts %}
      <article>
        <img src="{{post.post_img_url}}"></h6>
@@ -27,22 +25,38 @@
     {% endfor %}
   </body>
 </html>
-=======
 <title>Stand By Meme</title>
 <link rel="stylesheet" href="/stylesheet/styles.css">
+<link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 
-<h1>Stand By Meme</h1>
-
+<div class = "header">
+  <h1>STAND BY MEME</h1>
+</div>
+  <hr>
 <!--Login/Logout-->
+  {% if current_user %}
+    <nav>
+      <a href="/new_post">NEW POST</a>
+      |
+      <a href="{{logout_url}}" class="log">LOGOUT</a>
+    </nav>
+  {% else %}
+    <nav>
+        <a href="{{login_url}}" class="welcome">LOGIN</a>
+    </nav>
+  {% endif %}
+
+<hr>
+
+
 
 {% if current_user %}
-  <div class="welcome"><p>Welcome,<br>{{current_user}}!<br>
-  <a href="{{logout_url}}" class="log">Logout</a></div>
-  <a href="/new_post">ADD NEW POST</a>
-{% else %}
-  <span class="welcome"><a href="{{login_url}}" class="welcome">Login</a></span>
+<div class = "user-welcome">
+  <h4>Welcome, {{current_user}}</h4>
+</div>
 {% endif %}
 
+<h2>Trending:<h2>
 <div id = "post-container">
   {% for post in posts %}
     <article class="post_home">
@@ -55,4 +69,3 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/scripts/photogram.js"></script>
->>>>>>> b6d245d0594e57dc7ea3ac2e03ce82649d88382e

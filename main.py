@@ -3,6 +3,7 @@ import logging
 import webapp2
 import os
 import jinja2
+import datetime
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -18,6 +19,8 @@ class Post(ndb.Model):
     post_img_url = ndb.StringProperty()
     like_count = ndb.IntegerProperty(default=0)
     view_count = ndb.IntegerProperty(default=0)
+    recent_view_count = ndb.IntegerProperty(default=0)
+    trending = ndb.IntegerProperty()
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()
@@ -29,17 +32,30 @@ class Like(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
 
+class View(ndb.Model):
+    user = ndb.StringProperty()
+    post_key = ndb.KeyProperty(kind=Post)
+    view_time = ndb.DateTimeProperty(auto_now_add=True)
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         post_query = Post.query()
         posts = post_query.fetch()
-
-<<<<<<< HEAD
-
-=======
         current_user = users.get_current_user()
         login_url = users.create_login_url('/')
         logout_url = users.create_logout_url('/')
+        #===trending calculations===
+        views = View.query().fetch()
+        time_difference = datetime.datetime.now() - datetime.timedelta(minutes=30)
+        for post in posts:
+            post_key = post.key.urlsafe()
+            post.recent_view_count = 0
+            for view in views:
+                if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
+                    post.recent_view_count += 1
+                    post.put()
+        #order trending
+        posts = Post.query().order(-Post.recent_view_count).fetch()
         template_vars = {
             "posts": posts,
             "current_user": current_user,
@@ -49,6 +65,39 @@ class MainHandler(webapp2.RequestHandler):
 >>>>>>> b6d245d0594e57dc7ea3ac2e03ce82649d88382e
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render())
+
+
+
+class PostHandler(webapp2.RequestHandler):
+    def get(self):
+        #1. Get information from the request
+        urlsafe_key = self.request.get("key")
+        #2. Pulling the post from the database
+        post_key = ndb.Key(urlsafe = urlsafe_key)
+        post = post_key.get()
+        current_user = users.get_current_user()
+        #query, fetch, and filter the comments
+        comments = Comment.query().filter(Comment.post_key == post_key).order(Comment.post_time).fetch()
+        #Get the number of likes, filter them by post key
+        #likes = Like.query().filter(Like.post_key == post_key).fetch()
+
+        #==view counter==
+        post.view_count += 1
+        post.put()
+        views = View.query().fetch()
+        view = View(user=current_user.email(), post_key=post_key)
+        view.put()
+        views = View.query().fetch()
+
+        #========================
+        template_vars = {
+            "post": post,
+            "comments": comments,
+            "current_user": current_user,
+            'views': views
+        }
+        template = jinja_environment.get_template("templates/post.html")
+        self.response.write(template.render(template_vars))
 
 class NewPostHandler(webapp2.RequestHandler):
     def get(self):
@@ -65,30 +114,6 @@ class NewPostHandler(webapp2.RequestHandler):
             post = Post(user=user, title=title, caption=caption, post_img_url=post_img_url)
             post.put()
         self.redirect('/')
-
-class PostHandler(webapp2.RequestHandler):
-    def get(self):
-        #1. Get information from the request
-        urlsafe_key = self.request.get("key")
-        #2. Pulling the post from the database
-        post_key = ndb.Key(urlsafe = urlsafe_key)
-        post = post_key.get()
-        current_user = users.get_current_user()
-        #query, fetch, and filter the comments
-        comments = Comment.query().filter(Comment.post_key == post_key).order(Comment.post_time).fetch()
-        #Get the number of likes, filter them by post key
-        #likes = Like.query().filter(Like.post_key == post_key).fetch()
-
-        #view counter
-        post.view_count += 1
-        post.put()
-        template_vars = {
-            "post": post,
-            "comments": comments,
-            "current_user": current_user
-        }
-        template = jinja_environment.get_template("templates/post.html")
-        self.response.write(template.render(template_vars))
 
 class NewCommentHandler(webapp2.RequestHandler):
     def post(self):

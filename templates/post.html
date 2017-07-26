@@ -1,8 +1,16 @@
 <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
-
-<div class="home"><a href="/"><h2>Home<h2></a></div>
+<link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 
 <title>STAND BY MEME</title>
+<div class = "post_header">
+    <h1>STAND BY MEME<h1>
+</div>
+<hr>
+<nav>
+  <a href="/">Home</a>
+</nav>
+<hr>
+
 <h1>{{post.title}}</h1>
 <h2>{{post.user}}</h2>
 <h4>{{post.caption}}</h4>
@@ -12,10 +20,12 @@
 </p>
 
 
+
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
   <button>Like</button>
 </form>
+
 
 <h2>Views: {{post.view_count}}</h2>
 <h2>Likes: {{post.like_count}}<h2>
