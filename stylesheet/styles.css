@@ -1,5 +1,7 @@
 body {
-      background-color: #FFFFFF;
+      background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcd84JYUqHYb4yEny5FWO86kkGoKDCczuR64kWshfVCRksXL-uuQ");
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
 .header {
