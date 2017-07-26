@@ -65,6 +65,11 @@ a:hover
   letter-spacing: .5px;
 }
 
+.like {
+  border-style: hidden;
+  color: white;
+}
+
 #post-container{
   display: flex;
   flex-direction: row;

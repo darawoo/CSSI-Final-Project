@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+        <title> STAND BY MEME </title>
+</head>
+
+<link rel="stylesheet" href="/stylesheet/styles.css">
+<link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+
+<title>STAND BY MEME</title>
+<div class = "post_header">
+    <h1>STAND BY MEME<h1>
+</div>
+<hr>
+<nav>
+  <a href="/">Home</a>
+</nav>
+<hr>
+
+<h2>Trending:<h2>
+<div id = "post-container">
+  {% for post in posts %}
+    <article class="post_home">
+      <br>
+      <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
+      <h5>By: {{post.user}}</h5>
+    </article>
+  {% endfor %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/scripts/photogram.js"></script>
