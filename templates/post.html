@@ -8,21 +8,27 @@
   <a href="/" class = "post_header"><h1>STAND BY MEME</h1></a>
 </div>
 <hr>
-<h1>{{post.title}}</h1>
+
+<div class = "post-content">
+  <div style="float: left;" class = "post-content-left">
+    <p>
+      <img src = "{{post.post_img_url}}" height = "60%" width = "100%">
+    </p>
+  </div>
+  <div style="float: right;" class = "post-content-right">
+    <p>
+      <form action = "/like" method="post">
+        <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+          <button type = "submit" class = "like">
+            <img src = "/pictures/frog.png" alt = "Dank" style = "width:60px;height:60px;">
+          </button>
+      </form>
+    </p>
+  </div>
+</div>
+
 <h2>{{post.user}}</h2>
 <h4>{{post.caption}}</h4>
-
-<p>
-  <img src = "{{post.post_img_url}}">
-</p>
-
-<form action = "/like" method="post">
-  <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
-  <button type = "submit" class = "like">
-    <img src = "/pictures/frog.png" style = "width:60px;height:60px;">
-  </button>
-</form>
-
 
 <h2>Views: {{post.view_count}}</h2>
 <h2>Likes: {{post.like_count}}<h2>

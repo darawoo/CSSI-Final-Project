@@ -34,10 +34,13 @@ h3{
 
 h4 {
   margin: 5px;
+  font-family: 'Droid Sans', sans-serif;
+
 }
 h5{
   margin: 0px;
   font-family: 'Droid Sans', sans-serif;
+
 }
 
 hr {
@@ -79,6 +82,7 @@ a:hover
   margin: 10px;
 }
 .home_img {
+  width: 98%;
   height: 150px;
 
 }
@@ -107,4 +111,14 @@ a:hover
   font-size: 20px;
   padding: 10px 0 5px 0;
   text-align: center;
+}
+
+.post-content-left{
+  width: 700px;
+  margin: 50px;
+}
+
+.post-content-right{
+  width: 700px;
+  margin: 50px;
 }
