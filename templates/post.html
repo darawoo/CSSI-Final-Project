@@ -20,10 +20,12 @@
 </p>
 
 
+
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
   <button>Like</button>
 </form>
+
 
 <h2>Views: {{post.view_count}}</h2>
 <h2>Likes: {{post.like_count}}<h2>
