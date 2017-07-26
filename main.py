@@ -12,6 +12,7 @@ jinja_environment = jinja2.Environment(
 
 class College(ndb.Model):
     name = ndb.StringProperty()
+    name_value = ndb.StringProperty()
     location = ndb.StringProperty()
     logo_url = ndb.StringProperty()
 
@@ -50,7 +51,7 @@ class MainHandler(webapp2.RequestHandler):
         logout_url = users.create_logout_url('/')
         #===trending calculations===
         views = View.query().fetch()
-        time_difference = datetime.datetime.now() - datetime.timedelta(minutes=60)
+        time_difference = datetime.datetime.now() - datetime.timedelta(hours=2)
         for post in posts:
             post_key = post.key.urlsafe()
             post.recent_view_count = 0
@@ -105,8 +106,12 @@ class PostHandler(webapp2.RequestHandler):
 class NewPostHandler(webapp2.RequestHandler):
     def get(self):
         posts = Post.query().order(-Post.post_time).fetch()
+        colleges = College.query().fetch()
+        template_vars = {
+            'colleges': colleges
+        }
         template = jinja_environment.get_template('templates/new_post.html')
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
     def post(self):
         title = self.request.get('title')
