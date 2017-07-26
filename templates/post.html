@@ -1,6 +1,8 @@
 <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 
+
+
 <title> STAND BY MEME</title>
 <div class = "post_header">
     <h1>STAND BY MEME<h1>
@@ -36,16 +38,16 @@
  {% endfor %}
 
 {% if current_user %}
-<form action = "/new_comment" method="post">
-  <center>
+
+<form class="newcommentForm" action = "/new_comment" method="post">
+
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
-  </center>
+
   <h2>Leave a comment</h2>
-  <center>
+
   <textarea name = "content" placeholder="Comment Here"></textarea><br>
-  </center>
-  <center>
+
   <button>Leave a comment</button>
-  </center>
+
 </form>
 {% endif %}
