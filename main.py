@@ -46,7 +46,7 @@ class MainHandler(webapp2.RequestHandler):
         logout_url = users.create_logout_url('/')
         #===trending calculations===
         views = View.query().fetch()
-        time_difference = datetime.datetime.now() - datetime.timedelta(minutes=30)
+        time_difference = datetime.datetime.now() - datetime.timedelta(minutes=60)
         for post in posts:
             post_key = post.key.urlsafe()
             post.recent_view_count = 0
