@@ -10,17 +10,21 @@ from google.appengine.ext import ndb
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+class College(ndb.Model):
+    name = ndb.StringProperty()
+    location = ndb.StringProperty()
+    logo_url = ndb.StringProperty()
+
 class Post(ndb.Model):
     user = ndb.StringProperty()
     post_time = ndb.DateTimeProperty(auto_now_add=True)
     title = ndb.StringProperty()
     caption = ndb.StringProperty()
-    school = ndb.StringProperty()
     post_img_url = ndb.StringProperty()
     like_count = ndb.IntegerProperty(default=0)
     view_count = ndb.IntegerProperty(default=0)
     recent_view_count = ndb.IntegerProperty(default=0)
-    trending = ndb.IntegerProperty()
+    college_key = ndb.KeyProperty(kind=College)
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()

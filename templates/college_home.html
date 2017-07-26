@@ -3,42 +3,20 @@
 <head>
     <meta charset="utf-8">
         <title> STAND BY MEME </title>
-<<<<<<< HEAD
-
- <a href="/new_post">ADD NEW POST</a>
-=======
->>>>>>> 5a06e605a1f95268504e57bbe334f6b8c9189c01
-
 </head>
+
 <link rel="stylesheet" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 
-<div class = "header">
-  <h1>STAND BY MEME</h1>
+<title>STAND BY MEME</title>
+<div class = "post_header">
+    <h1>STAND BY MEME<h1>
 </div>
-  <hr>
-<!--Login/Logout-->
-  {% if current_user %}
-    <nav>
-      <a href="/new_post">NEW POST</a>
-      |
-      <a href="{{logout_url}}" class="log">LOGOUT</a>
-    </nav>
-  {% else %}
-    <nav>
-        <a href="{{login_url}}" class="welcome">LOGIN</a>
-    </nav>
-  {% endif %}
-
 <hr>
-
-
-
-{% if current_user %}
-<div class = "user-welcome">
-  <h4>Welcome, {{current_user}}</h4>
-</div>
-{% endif %}
+<nav>
+  <a href="/">Home</a>
+</nav>
+<hr>
 
 <h2>Trending:<h2>
 <div id = "post-container">
