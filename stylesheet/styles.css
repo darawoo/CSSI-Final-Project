@@ -70,7 +70,7 @@ a:hover
 .like {
   border-style: hidden;
   color: white;
-  background: white;
+  background: transparent;
 }
 
 #post-container{
