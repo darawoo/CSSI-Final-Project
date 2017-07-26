@@ -41,20 +41,21 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         post_query = Post.query()
         posts = post_query.fetch()
-
         current_user = users.get_current_user()
         login_url = users.create_login_url('/')
         logout_url = users.create_logout_url('/')
         #===trending calculations===
         views = View.query().fetch()
+        time_difference = datetime.datetime.now() - datetime.timedelta(minutes=30)
         for post in posts:
             post_key = post.key.urlsafe()
             post.recent_view_count = 0
             for view in views:
-                time_difference = datetime.datetime.now() - datetime.timedelta(minutes=30)
                 if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
                     post.recent_view_count += 1
                     post.put()
+        #order trending
+        posts = Post.query().order(-Post.recent_view_count).fetch()
         template_vars = {
             "posts": posts,
             "current_user": current_user,

@@ -22,12 +22,15 @@
 
 <hr>
 
+
+
 {% if current_user %}
 <div class = "user-welcome">
   <h4>Welcome, {{current_user}}</h4>
 </div>
 {% endif %}
 
+<h2>Trending:<h2>
 <div id = "post-container">
   {% for post in posts %}
     <article class="post_home">
