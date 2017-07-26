@@ -61,11 +61,13 @@ class MainHandler(webapp2.RequestHandler):
                     post.put()
         #order trending
         posts = Post.query().order(-Post.recent_view_count).fetch()
+        colleges = College.query().fetch()
         template_vars = {
             "posts": posts,
             "current_user": current_user,
             "logout_url": logout_url,
-            "login_url": login_url
+            "login_url": login_url,
+            "colleges": colleges
         }
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
@@ -166,15 +168,17 @@ class LikeHandler(webapp2.RequestHandler):
         self.redirect(url)
 
 class CollegeHomeHandler(webapp2.RequestHandler):
-    def post(self):
-        colleges = College.query().fetch()
-
-
+    def get(self):
+        urlsafe_key = self.request.get('key')
+        college_key = ndb.Key(urlsafe=urlsafe_key)
+        college = college_key.get()
+        posts = Post.query().filter(Post.college_key==college_key).fetch()
         template_vars = {
-            'college': college
+            'college': college,
+            'posts': posts
         }
         template = jinja_environment.get_template('templates/college_home.html')
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class AddCollegeHomeHandler(webapp2.RequestHandler):
     def get(self):

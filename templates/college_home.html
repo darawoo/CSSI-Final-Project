@@ -11,17 +11,22 @@
 <title>STAND BY MEME</title>
 <div class = "post_header">
   <a href="/" class = "post_header"><h1>STAND BY MEME</h1></a>
+  <hr>
+  <h2>{{college.name}}</h2>
+  <img src="{{college.logo_url}}" style="height: 50px;"/>
 </div>
 <hr>
 
 <h2>Trending:<h2>
 <div id = "post-container">
   {% for post in posts %}
+  {% if post.college_key == college.key %}
     <article class="post_home">
       <br>
       <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
       <h5>By: {{post.user}}</h5>
     </article>
+  {% endif %}
   {% endfor %}
 </div>
 
