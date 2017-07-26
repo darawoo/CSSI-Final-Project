@@ -1,4 +1,30 @@
 <!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title> STAND BY MEME </title>
+  <body>
+  <style>
+     body{
+       background-color: pink
+     }
+  </style>
+     HELLLOOOOO
+     <a href="/new_post">
+       ADD NEW POST
+     </a>
+
+     <a href="/new_post">ADD NEW POST</a>
+
+    {% for post in posts %}
+     <article>
+       <img src="{{post.post_img_url}}"></h6>
+      <h6>By {{post.user}}</h6>
+      </article>
+    {% endfor %}
+  </body>
+</html>
 <title>Stand By Meme</title>
 <link rel="stylesheet" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">

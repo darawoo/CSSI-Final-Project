@@ -62,8 +62,9 @@ class MainHandler(webapp2.RequestHandler):
             "logout_url": logout_url,
             "login_url": login_url
         }
+>>>>>>> b6d245d0594e57dc7ea3ac2e03ce82649d88382e
         template = jinja_environment.get_template('templates/home.html')
-        self.response.write(template.render(template_vars))
+        self.response.write(template.render())
 
 
 
