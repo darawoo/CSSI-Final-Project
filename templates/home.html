@@ -46,6 +46,7 @@
   {% endfor %}
 </div>
 
+<h3>Colleges:</h3>
 {% for college in colleges %}
   <p><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
 {% endfor %}

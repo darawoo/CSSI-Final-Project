@@ -1,5 +1,5 @@
 body {
-      #background-image: url("https://image.freepik.com/free-vector/simple-geometric-background_23-2147489455.jpg");
+      background-image: url("https://image.freepik.com/free-vector/simple-geometric-background_23-2147489455.jpg");
       background-repeat: no-repeat;
       background-size: cover;
 
@@ -64,7 +64,7 @@ nav a
 
 a:hover
 {
-  color: red;
+  color: orange;
 }
 
 .post_header {

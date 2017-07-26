@@ -10,9 +10,10 @@ from google.appengine.ext import ndb
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+#==================MODELS=======================
+
 class College(ndb.Model):
     name = ndb.StringProperty()
-    name_value = ndb.StringProperty()
     location = ndb.StringProperty()
     logo_url = ndb.StringProperty()
 
@@ -23,6 +24,7 @@ class Post(ndb.Model):
     caption = ndb.StringProperty()
     post_img_url = ndb.StringProperty()
     like_count = ndb.IntegerProperty(default=0)
+    dislike_count = ndb.IntegerProperty(default=0)
     view_count = ndb.IntegerProperty(default=0)
     recent_view_count = ndb.IntegerProperty(default=0)
     college_key = ndb.KeyProperty(kind=College)
@@ -36,11 +38,16 @@ class Comment(ndb.Model):
 class Like(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
+    like_type = ndb.BooleanProperty()
 
 class View(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
     view_time = ndb.DateTimeProperty(auto_now_add=True)
+
+
+#=================HANDLERS===========================
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -167,6 +174,29 @@ class LikeHandler(webapp2.RequestHandler):
         url = "/post?key=" + post.key.urlsafe()
         self.redirect(url)
 
+class DislikeHandler(webapp2.RequestHandler):
+    def post(self):
+        user = ndb.StringProperty()
+        user = users.get_current_user().email()
+        #1. Getting information from the request
+        urlsafe_key = self.request.get("post_key")
+        #2. Interacting with our Database and APIs
+        post_key = ndb.Key(urlsafe = urlsafe_key)
+        post = post_key.get()
+
+        if post.dislike_count == None:
+            post.dislike_count = 0
+
+         # Increase the photo count and update the database.
+
+        post.dislike_count = post.dislike_count + 1
+        post.put()
+
+        # === 3: Send a response. ===
+        # Send the updated count back to the client.
+        url = "/post?key=" + post.key.urlsafe()
+        self.redirect(url)
+
 class CollegeHomeHandler(webapp2.RequestHandler):
     def get(self):
         urlsafe_key = self.request.get('key')
@@ -199,7 +229,12 @@ class AddCollegeHomeHandler(webapp2.RequestHandler):
         self.redirect('/')
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler),
-    ('/new_comment', NewCommentHandler), ('/like', LikeHandler),
-    ('/college_home', CollegeHomeHandler), ('/add_college', AddCollegeHomeHandler)
+    ('/', MainHandler),
+    ('/post', PostHandler),
+    ('/new_post', NewPostHandler),
+    ('/new_comment', NewCommentHandler),
+    ('/like', LikeHandler),
+    ('/dislike', DislikeHandler),
+    ('/college_home', CollegeHomeHandler),
+    ('/add_college', AddCollegeHomeHandler)
 ], debug=True)
