@@ -117,9 +117,11 @@ class NewPostHandler(webapp2.RequestHandler):
         title = self.request.get('title')
         caption = self.request.get('caption')
         post_img_url = self.request.get('post_img_url')
+        urlsafe_key = self.request.get('urlsafe_college_key')
+        college_key = ndb.Key(urlsafe=urlsafe_key)
         user = users.get_current_user().email()
         if title != "":
-            post = Post(user=user, title=title, caption=caption, post_img_url=post_img_url)
+            post = Post(user=user, title=title, caption=caption, post_img_url=post_img_url, college_key=college_key)
             post.put()
         self.redirect('/')
 
@@ -132,7 +134,7 @@ class NewCommentHandler(webapp2.RequestHandler):
         content = self.request.get("content")
         urlsafe_key = self.request.get("post_key")
         #2. Interacting with our Database and APIs
-        post_key = ndb.Key(urlsafe = urlsafe_key)
+        post_key = ndb.Key(urlsafe=urlsafe_key)
         post = post_key.get()
         #3. Creating Post
         comment = Comment(user=user,content=content, post_key=post_key)
@@ -163,7 +165,37 @@ class LikeHandler(webapp2.RequestHandler):
         url = "/post?key=" + post.key.urlsafe()
         self.redirect(url)
 
+class CollegeHomeHandler(webapp2.RequestHandler):
+    def post(self):
+        colleges = College.query().fetch()
+
+
+        template_vars = {
+            'college': college
+        }
+        template = jinja_environment.get_template('templates/college_home.html')
+        self.response.write(template.render())
+
+class AddCollegeHomeHandler(webapp2.RequestHandler):
+    def get(self):
+        colleges = College.query().fetch()
+        template_vars = {
+            'colleges': colleges
+        }
+        template = jinja_environment.get_template('templates/add_college.html')
+        self.response.write(template.render(template_vars))
+
+    def post(self):
+        name = self.request.get('name')
+        location = self.request.get('location')
+        logo_url = self.request.get('logo_url')
+
+        college = College(name = name, location = location, logo_url= logo_url)
+        college.put()
+        self.redirect('/')
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler),
-    ('/new_comment', NewCommentHandler), ('/like', LikeHandler)
+    ('/new_comment', NewCommentHandler), ('/like', LikeHandler),
+    ('/college_home', CollegeHomeHandler), ('/add_college', AddCollegeHomeHandler)
 ], debug=True)
