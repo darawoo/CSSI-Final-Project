@@ -1,0 +1,38 @@
+<link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
+
+<div class="home"><a href="/"><h2>Home<h2></a></div>
+
+<title>STAND BY MEME</title>
+<h1>{{post.title}}</h1>
+<h2>{{post.user}}</h2>
+<h4>{{post.caption}}</h4>
+
+<p>
+  <img src = "{{post.post_img_url}}">
+</p>
+
+
+<form action = "/like" method="post">
+  <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+  <button>Like</button>
+</form>
+
+<h2>Views: {{post.view_count}}</h2>
+<h2>Likes: {{post.like_count}}<h2>
+
+<h2>Comments on this post</h2>
+  {% for comment in comments %}
+    <div>{{comment.content}}</div>
+    <div>Written by: {{comment.user}}</div>
+    Posted on {{comment.post_time.strftime("%b %d, %Y")}}
+    <br><br>
+  {% endfor %}
+
+{% if current_user %}
+<form action = "/new_comment" method="post">
+  <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+  <h2>Leave a comment</h2>
+  <textarea name = "content" placeholder="Comment Here"></textarea><br>
+  <button>Leave a comment</button>
+</form>
+{% endif %}
