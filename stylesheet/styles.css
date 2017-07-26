@@ -76,9 +76,11 @@ a:hover
   border-style: hidden;
   text-align: center;
   width: 20%
+  margin: 10px;
 }
 .home_img {
   height: 150px;
+
 }
 
 .user-welcome{
