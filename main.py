@@ -163,7 +163,13 @@ class LikeHandler(webapp2.RequestHandler):
         url = "/post?key=" + post.key.urlsafe()
         self.redirect(url)
 
+class CollegeHomeHandler(webapp2.RequestHandler):
+    def post(self):
+        template = jinja_environment.get_template('templates/college_home.html')
+        self.response.write(template.render())
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler),
-    ('/new_comment', NewCommentHandler), ('/like', LikeHandler)
+    ('/new_comment', NewCommentHandler), ('/like', LikeHandler),
+    ('college_home', CollegeHomeHandler)
 ], debug=True)
