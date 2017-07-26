@@ -65,9 +65,17 @@ a:hover
   letter-spacing: .5px;
 }
 
+.like {
+  border-style: hidden;
+  color: white;
+}
+
 #post-container{
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 30px;
+}
+.newcommentForm {
+  text-align: center;
 }

@@ -1,7 +1,9 @@
 <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 
-<title>STAND BY MEME</title>
+
+
+<title> STAND BY MEME</title>
 <div class = "post_header">
     <h1>STAND BY MEME<h1>
 </div>
@@ -10,7 +12,6 @@
   <a href="/">Home</a>
 </nav>
 <hr>
-
 <h1>{{post.title}}</h1>
 <h2>{{post.user}}</h2>
 <h4>{{post.caption}}</h4>
@@ -19,11 +20,11 @@
   <img src = "{{post.post_img_url}}">
 </p>
 
-
-
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
-  <button>Like</button>
+  <button type = "submit" class = "like">
+    <img src = "/pictures/frog.png" style = "width:50px;height:50px;">
+  </button>
 </form>
 
 
@@ -36,13 +37,19 @@
     <div>Written by: {{comment.user}}</div>
     Posted on {{comment.post_time.strftime("%b %d, %Y")}}
     <br><br>
-  {% endfor %}
+ {% endfor %}
 
 {% if current_user %}
-<form action = "/new_comment" method="post">
+
+<form class="newcommentForm" action = "/new_comment" method="post">
+
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+
   <h2>Leave a comment</h2>
+
   <textarea name = "content" placeholder="Comment Here"></textarea><br>
+
   <button>Leave a comment</button>
+
 </form>
 {% endif %}
