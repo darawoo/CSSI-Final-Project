@@ -8,16 +8,14 @@
             background-size : 125%;
           }
         h1 {
-	          font-size : 300% ;
-	          font-family:verdana ;
 	          text-align: center ;
            }
         h2 {
-	         font-size : 250% ;
-	         font-family:verdana ;
 	          text-align: center ;
           }
+
     </style>
+
     <meta charset="utf-8">
     <title>Submit a Post</title>
 
@@ -33,7 +31,6 @@
   <a href="/">Home</a>
 </nav>
 <hr>
-
 <h1>{{post.title}}</h1>
 <h2>{{post.user}}</h2>
 <h4>{{post.caption}}</h4>
@@ -41,8 +38,6 @@
 <p>
   <img src = "{{post.post_img_url}}">
 </p>
-
-
 
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
@@ -59,7 +54,7 @@
     <div>Written by: {{comment.user}}</div>
     Posted on {{comment.post_time.strftime("%b %d, %Y")}}
     <br><br>
-  {% endfor %}
+ {% endfor %}
 
 {% if current_user %}
 <form action = "/new_comment" method="post">
@@ -75,3 +70,5 @@
   </center>
 </form>
 {% endif %}
+</head>
+</html>
