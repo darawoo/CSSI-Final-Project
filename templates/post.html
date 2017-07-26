@@ -1,3 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+            background-image:   url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXY80xTvyJTI_kAQWTgTewr0gnIibHXsEJO0rSw5esbtTHhmZZ8g");
+   	        background-repeat: no-repeat;
+            background-size : 125%;
+          }
+        h1 {
+	          font-size : 300% ;
+	          font-family:verdana ;
+	          text-align: center ;
+           }
+        h2 {
+	         font-size : 250% ;
+	         font-family:verdana ;
+	          text-align: center ;
+          }
+    </style>
+    <meta charset="utf-8">
+    <title>Submit a Post</title>
+
 <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 
@@ -40,9 +63,15 @@
 
 {% if current_user %}
 <form action = "/new_comment" method="post">
+  <center>
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+  </center>
   <h2>Leave a comment</h2>
+  <center>
   <textarea name = "content" placeholder="Comment Here"></textarea><br>
+  </center>
+  <center>
   <button>Leave a comment</button>
+  </center>
 </form>
 {% endif %}
