@@ -168,8 +168,26 @@ class CollegeHomeHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('templates/college_home.html')
         self.response.write(template.render())
 
+class AddCollegeHomeHandler(webapp2.RequestHandler):
+    def get(self):
+        colleges = College.query().fetch()
+        template_vars = {
+            'colleges': colleges
+        }
+        template = jinja_environment.get_template('templates/add_college.html')
+        self.response.write(template.render(template_vars))
+
+    def post(self):
+        name = self.request.get('name')
+        location = self.request.get('location')
+        logo_url = self.request.get('logo_url')
+
+        college = College(name = name, location = location, logo_url= logo_url)
+        college.put()
+        self.redirect('/')
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler), ('/post', PostHandler), ('/new_post', NewPostHandler),
     ('/new_comment', NewCommentHandler), ('/like', LikeHandler),
-    ('college_home', CollegeHomeHandler)
+    ('/college_home', CollegeHomeHandler), ('/add_college', AddCollegeHomeHandler)
 ], debug=True)

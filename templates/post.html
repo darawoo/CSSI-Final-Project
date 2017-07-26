@@ -5,12 +5,8 @@
 
 <title> STAND BY MEME</title>
 <div class = "post_header">
-    <h1>STAND BY MEME<h1>
+  <a href="/" class = "post_header"><h1>STAND BY MEME</h1></a>
 </div>
-<hr>
-<nav>
-  <a href="/">Home</a>
-</nav>
 <hr>
 <h1>{{post.title}}</h1>
 <h2>{{post.user}}</h2>
@@ -22,7 +18,7 @@
 
 <form action = "/like" method="post">
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
-  <button type = "submit" class = "like" title = "Dank">
+  <button type = "submit" class = "like">
     <img src = "/pictures/frog.png" style = "width:60px;height:60px;">
   </button>
 </form>
