@@ -81,5 +81,9 @@ a:hover
   margin: 30px;
 }
 .newcommentForm {
+  font-family: Papyrus, fantasy;
+  text-align: center;
+  font-size: 20px;
+  padding: 10px 0 5px 0;
   text-align: center;
 }
