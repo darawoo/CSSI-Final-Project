@@ -3,6 +3,7 @@ import logging
 import webapp2
 import os
 import jinja2
+import datetime
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -18,6 +19,7 @@ class Post(ndb.Model):
     post_img_url = ndb.StringProperty()
     like_count = ndb.IntegerProperty(default=0)
     view_count = ndb.IntegerProperty(default=0)
+    recent_view_count = ndb.IntegerProperty(default=0)
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()
@@ -35,9 +37,10 @@ class View(ndb.Model):
     view_time = ndb.DateTimeProperty(auto_now_add=True)
     trending = ndb.IntegerProperty()
 
-class RecentViews(ndb.Model):
-    view_key =ndb.KeyProperty(kind=View)
-    recent_views = ndb.IntegerProperty
+class TrendingView(ndb.Model):
+    view_key = ndb.KeyProperty(kind=View)
+    post_key = ndb.KeyProperty(kind=Post)
+    recent_view_count = ndb.IntegerProperty(default=0)
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -49,9 +52,15 @@ class MainHandler(webapp2.RequestHandler):
         login_url = users.create_login_url('/')
         logout_url = users.create_logout_url('/')
         #===trending calculations===
-
-
-
+        views = View.query().fetch()
+        for post in posts:
+            post_key = post.key.urlsafe()
+            post.recent_view_count = 0
+            for view in views:
+                time_difference = datetime.datetime.now() - datetime.timedelta(minutes=30)
+                if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
+                    post.recent_view_count += 1
+                    post.put()
         template_vars = {
             "posts": posts,
             "current_user": current_user,
@@ -61,21 +70,7 @@ class MainHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
 
-class NewPostHandler(webapp2.RequestHandler):
-    def get(self):
-        posts = Post.query().order(-Post.post_time).fetch()
-        template = jinja_environment.get_template('templates/new_post.html')
-        self.response.write(template.render())
 
-    def post(self):
-        title = self.request.get('title')
-        caption = self.request.get('caption')
-        post_img_url = self.request.get('post_img_url')
-        user = users.get_current_user().email()
-        if title != "":
-            post = Post(user=user, title=title, caption=caption, post_img_url=post_img_url)
-            post.put()
-        self.redirect('/')
 
 class PostHandler(webapp2.RequestHandler):
     def get(self):
@@ -96,6 +91,10 @@ class PostHandler(webapp2.RequestHandler):
         views = View.query().fetch()
         view = View(user=current_user.email(), post_key=post_key)
         view.put()
+        views = View.query().fetch()
+        #===Trending calculations===
+        trending_views = TrendingView.query().fetch()
+
         #========================
         template_vars = {
             "post": post,
@@ -105,6 +104,22 @@ class PostHandler(webapp2.RequestHandler):
         }
         template = jinja_environment.get_template("templates/post.html")
         self.response.write(template.render(template_vars))
+
+class NewPostHandler(webapp2.RequestHandler):
+    def get(self):
+        posts = Post.query().order(-Post.post_time).fetch()
+        template = jinja_environment.get_template('templates/new_post.html')
+        self.response.write(template.render())
+
+    def post(self):
+        title = self.request.get('title')
+        caption = self.request.get('caption')
+        post_img_url = self.request.get('post_img_url')
+        user = users.get_current_user().email()
+        if title != "":
+            post = Post(user=user, title=title, caption=caption, post_img_url=post_img_url)
+            post.put()
+        self.redirect('/')
 
 class NewCommentHandler(webapp2.RequestHandler):
     def post(self):
