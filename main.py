@@ -20,6 +20,7 @@ class Post(ndb.Model):
     like_count = ndb.IntegerProperty(default=0)
     view_count = ndb.IntegerProperty(default=0)
     recent_view_count = ndb.IntegerProperty(default=0)
+    trending = ndb.IntegerProperty()
 
 class Comment(ndb.Model):
     user = ndb.StringProperty()
@@ -35,13 +36,6 @@ class View(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
     view_time = ndb.DateTimeProperty(auto_now_add=True)
-    trending = ndb.IntegerProperty()
-
-class TrendingView(ndb.Model):
-    view_key = ndb.KeyProperty(kind=View)
-    post_key = ndb.KeyProperty(kind=Post)
-    recent_view_count = ndb.IntegerProperty(default=0)
-
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -92,8 +86,6 @@ class PostHandler(webapp2.RequestHandler):
         view = View(user=current_user.email(), post_key=post_key)
         view.put()
         views = View.query().fetch()
-        #===Trending calculations===
-        trending_views = TrendingView.query().fetch()
 
         #========================
         template_vars = {
