@@ -6,11 +6,12 @@
 <div class = "header">
   <h1>STAND BY MEME</h1>
 </div>
-
+  <hr>
 <!--Login/Logout-->
   {% if current_user %}
     <nav>
       <a href="/new_post">NEW POST</a>
+      |
       <a href="{{logout_url}}" class="log">LOGOUT</a>
     </nav>
   {% else %}
@@ -18,6 +19,11 @@
         <a href="{{login_url}}" class="welcome">LOGIN</a>
     </nav>
   {% endif %}
+
+<hr>
+<div class = "user-welcome">
+  <h4>Welcome, {{current_user}}</h4>
+</div>
 
 <div id = "post-container">
   {% for post in posts %}
