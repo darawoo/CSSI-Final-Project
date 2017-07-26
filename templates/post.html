@@ -39,7 +39,7 @@
 
 {% if current_user %}
 
-<form class="newcommentForm" action = "/new_comment" method="post">
+<form action = "/new_comment" method="post">
 
   <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
 
