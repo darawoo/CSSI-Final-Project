@@ -25,9 +25,9 @@
 
       <select id="college-choice">
         <option selected value= "college">Which college do you go to?</option>
-        <option value = "umich">University of Michigan -- Ann Arbor</option>
-        <option value="und">University of Notre Dame</option>
-        <option value="sfsu">San Fransisco State University</option>
+        {% for college in colleges %}
+          <option value="{{college.name.replace(' ','_')}}">{{college.name}}</option>
+        {% endfor %}
       </select>
 
       <h2>Input your image url:</h2>
