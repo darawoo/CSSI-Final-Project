@@ -86,8 +86,6 @@ class PostHandler(webapp2.RequestHandler):
         view = View(user=current_user.email(), post_key=post_key)
         view.put()
         views = View.query().fetch()
-        #===Trending calculations===
-        trending_views = TrendingView.query().fetch()
 
         #========================
         template_vars = {
