@@ -131,3 +131,11 @@ a:hover
      box-shadow: 1px 1px 5px;
      overflow: hidden;
 }
+paper-listbox {
+  position: fixed;
+  right: 2%;
+  top: 282px;
+  --paper-listbox-background-color: transparent;
+  border-style: solid;
+  padding-left: 7px;
+}
