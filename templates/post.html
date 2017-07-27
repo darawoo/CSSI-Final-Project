@@ -1,66 +1,99 @@
-<link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<script src="http://polygit.org/polymer+:master/components/webcomponentsjs/webcomponents-lite.js"></script>
+
+
+<link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-card/paper-card.html">
+<link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-input/paper-input.html">
+<link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-item/paper-item.html">
+<link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-menu/paper-menu.html">
+
+<link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
+<!--
+
 <link rel="import" href="http://polygit.org/polymer+:master/components/polymer/polymer-element.html">
 <link rel="import" href="http://polygit.org/polymer+:master/components/paper-menu-button/paper-menu-button.html">
 <link rel="import" href="http://polygit.org/polymer+:master/components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="http://polygit.org/polymer+:master/components/paper-listbox/paper-listbox.html">
-<link rel="import" href="http://polygit.org/polymer+:master/components/paper-item/paper-item.html">
 <link rel="import" href="http://polygit.org/polymer+:master/components/iron-icons/iron-icons.html">
-<link rel="import" href="http://polygit.org/polymer+:master/components/iron-icon/iron-icon.html">
+<link rel="import" href="http://polygit.org/polymer+:master/components/iron-icon/iron-icon.html"> -->
 
-<title> STAND BY MEME</title>
-<div class = "post_header">
-  <a href="/" class = "post_header"><h1>STAND BY MEME</h1></a>
-</div>
-<hr>
+<div class = "post-page">
+  <title> STAND BY MEME</title>
 
-<div class = "post-content">
-  <div style="float: left;" class = "post-content-left">
-    <p>
-      <img src = "{{post.post_img_url}}" height = "60%" width = "100%">
-    </p>
+  <div class = "post_header">
+    <a href="/" id="post_header" class="post_header"><h1>STAND BY MEME</h1></a>
   </div>
-  <div style="float: right;" class = "post-content-right">
-    <p>
-      <form action = "/like" method="post">
-        <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
-          <button type = "submit" class = "like">
-            <img src = "/pictures/frog.png" alt = "Dank" style = "width:60px;height:60px;">
-          </button>
-      </form>
-    </p>
+  <hr>
+
+  <custom-style>
+    <style is="custom-style">
+      .cafe-header { @apply --paper-font-headline; }
+      .cafe-light { color: var(--paper-grey-600); }
+      .cafe-location {
+        float: right;
+        font-size: 15px;
+        vertical-align: middle;
+      }
+      .cafe-reserve { color: var(--google-blue-500); }
+      iron-icon.star {
+        --iron-icon-width: 16px;
+        --iron-icon-height: 16px;
+        color: var(--paper-amber-500);
+      }
+      iron-icon.star:last-of-type { color: var(--paper-grey-500); }
+    </style>
+  </custom-style>
+
+  <div class="main-content">
+    <paper-card image="{{post.post_img_url}}" alt="Meme">
+      <div class="card-content">
+        <div class="cafe-header"><h4>DANKNESS RATING</h4>
+          <div class="cafe-location cafe-light">
+            <iron-icon icon="communication:location-on"></iron-icon>
+          </div>
+        </div>
+        <div class="meme-rating" id='left'>
+          <form action = "/like" method="post">
+            <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+              <button type = "submit" class = "like">
+                <img src = "/pictures/frog.png" alt = "Dank" style = "width:60px;height:60px;">
+              </button>
+          </form>
+        </div>
+
+          <p>seen by: {{post.view_count}}</p>
+          <p>Likes: {{post.like_count}}</p>
+
+          <p>posted by: {{post.user}}</p>
+          <p class="cafe-light">{{post.caption}}</p>
+        </div>
+    </paper-card>
+
+  <paper-card heading="Comments" class="post-comments">
+    <div role="listbox">
+      {% for comment in comments %}
+        <paper-item>{{comment.content}}
+          <br>Written by: {{comment.user}}
+          <br>Posted on {{comment.post_time.strftime("%b %d, %Y")}}</paper-item>
+          <br>
+      {% endfor %}
+    </div>
+    </paper-card>
+
+    <paper-card heading="Leave a Comment" class="post-comments">
+      <div role="listbox">
+        {% if current_user %}
+          <form action = "/new_comment" method="post">
+            <input type = "hidden" name="post_key" value="{{post.key.urlsafe()}}">
+            <paper-input always-float-label name = "content" label="Comment Here"></paper-input>
+          </form>
+        {% endif %}
+      </div>
+      </paper-card>
+
   </div>
 </div>
 
-<h2>{{post.user}}</h2>
-<h4>{{post.caption}}</h4>
-
-<h2>Views: {{post.view_count}}</h2>
-<h2>Likes: {{post.like_count}}<h2>
-
-<h2>Comments on this post</h2>
-  {% for comment in comments %}
-    <div>{{comment.content}}</div>
-    <div>Written by: {{comment.user}}</div>
-    Posted on {{comment.post_time.strftime("%b %d, %Y")}}
-    <br><br>
- {% endfor %}
-
-{% if current_user %}
-
-<form action = "/new_comment" method="post">
-
-  <input type = "hidden" name="post_key" value="{{post.key.urlsafe()}}">
-
-  <h2>Leave a comment</h2>
-
-  <textarea name = "content" placeholder="Comment Here"></textarea><br>
-
-  <button>Leave a comment</button>
-
-</form>
-{% endif %}
+<script src="http://polygit.org/polymer+:master/components/webcomponentsjs/webcomponents-lite.js"></script>
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>

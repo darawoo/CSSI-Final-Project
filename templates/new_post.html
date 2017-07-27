@@ -5,38 +5,37 @@
     <title>Submit a Post</title>
     <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
-
-    <div class = "post_header">
+    <link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-input/paper-input.html">
+    <link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-button/paper-button.html">
+<div class = "post_header">
       <a href="/" class = "post_header"><h1>STAND BY MEME</h1></a>
     </div>
     <hr>
 
   </head>
   <body>
-    <form class="newcommentForm"action = "/new_post" method="post">
+    <form class="new-post-form" action = "/new_post" method="post">
+      <br>
       <h2>Name your meme:</h2>
-      <input class="align" type="text" name="title" placeholder="Enter Title Here" style="text-align: center"; required/>
+      <paper-input always-float-label name ="title" label="Enter Title Here"></paper-input>
       <h2>Caption:</h2>
-
-      <textarea name="caption" placeholder="Words..."></textarea>
+      <paper-input always-float-label name = "caption" label="Enter Caption Here"></paper-input>
 
       <br>
 
+      <h2>College:</h2>
       <select id="college-choice" name="urlsafe_college_key" required>
-        <option>Which college do you go to?</option>
+           <option>Which college do you go to?</option>
 
-        {% for college in colleges %}
-          <option value="{{college.key.urlsafe()}}">{{college.name}}</option>
-        {% endfor %}
+           {% for college in colleges %}
+             <option value="{{college.key.urlsafe()}}">{{college.name}}</option>
+           {% endfor %}
 
-      </select>
+         </select>
 
+      <br><br>
       <h2>Input your image url:</h2>
-
-      <input type="text" name="post_img_url" placeholder="Image URL" required/>
-
-      <br><button>Submit</button>
-
+      <paper-input always-float-label name = "post_img_url" label="Enter Copied Image Address"</paper-input>
     </form>
     <br><br><br>
     <p style="text-align:center;">Don't see your college? <a href="/add_college">Click Here!</a></p>
