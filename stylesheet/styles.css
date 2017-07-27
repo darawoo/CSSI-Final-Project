@@ -7,7 +7,9 @@ body {
 
 .post-page{
   background: #DDDFDF;
-  margin:auto;
+  margin-left:auto;
+  margin-right: auto;
+  align-content: center;
 }
 
 .header {
