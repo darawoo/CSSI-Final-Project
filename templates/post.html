@@ -60,10 +60,18 @@
                 <img src = "/pictures/frog.png" alt = "Dank" style = "width:60px;height:60px;">
               </button>
           </form>
+          <form action = "/dislike" method="post">
+            <input type = "hidden" name = "post_key" value = "{{post.key.urlsafe()}}">
+              <button type = "submit" class = "like">
+                <img src = "/pictures/AngryPepe.png" alt = "Dank" style = "width:60px;height:60px;">
+              </button>
+          </form>
         </div>
 
           <p>seen by: {{post.view_count}}</p>
           <p>Likes: {{post.like_count}}</p>
+          <p>Dislikes: {{post.dislike_count}}</p>
+
 
           <p>posted by: {{post.user}}</p>
           <p class="cafe-light">{{post.caption}}</p>
