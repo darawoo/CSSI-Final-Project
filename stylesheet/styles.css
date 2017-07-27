@@ -78,7 +78,6 @@ hr {
   margin-right: 10%;
 }
 
-
 .college-home-content hr {
   margin: 10px;
   margin-left: 10%;
@@ -108,7 +107,7 @@ a:hover
 }
 
 .home-word{
-margin-left: 60px;
+  margin-left: 60px;
 }
 
 .new-post-form{
@@ -181,7 +180,7 @@ a:hover h1
 
 .home_img {
   height: 200px;
-  width: 200px;
+  width: 99%;
 }
 .user-welcome{
   text-align: center;

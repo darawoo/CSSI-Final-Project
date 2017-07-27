@@ -7,6 +7,10 @@
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="import" href="https://raw-dot-custom-elements.appspot.com/Redbility/paper-carousel/1.2.5/paper-carousel/paper-carousel.html">
+
+
 </head>
 
   <body>
@@ -24,20 +28,25 @@
       </div>
       <hr>
 
-      <h6>Trending:</h6>
-      <br>
-      <div id = "post-container">
-        {% for post in posts %}
-        {% if post.college_key == college.key %}
-          <article class="post_home">
-            <br>
-            <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
-            <h5>By: {{post.user}}</h5>
-          </article>
-        {% endif %}
-        {% endfor %}
-      </div>
-    </div>
+      <div class = "home-page">
+        <div class = "homeword">
+          <h3>TRENDING:</h3>
+        </div>
+        <div id = "post-container">
+                <div class="container" style="width: 75%; margin: auto">
+                  <article class="post_home">
+                  <!-- <paper-carousel items="1" responsive="600:2, 460:1" controls="true" dots="true" dotText="false"> -->
+                  <paper-carousel items="3" responsive="600:2, 460:1" controls="true" dots="true" dotText="false">
+                    {% for post in posts %}
+
+                    <a href="/post?key={{post.key.urlsafe()}}">
+                    <img src="{{post.post_img_url}}" class="home_img" draggable="false">
+
+                    </a>
+                    {% endfor %}
+                  </paper-carousel>
+                  <!-- <h5>By: post.user</h5> -->
+                </article>
 
       <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>

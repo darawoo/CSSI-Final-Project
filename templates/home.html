@@ -56,10 +56,10 @@
               <paper-carousel items="3" responsive="600:2, 460:1" controls="true" dots="true" dotText="false">
                 {% for post in posts %}
 
-                <!-- <a href="/post?key={{post.key.urlsafe()}}"> -->
-                <img src="{{post.post_img_url}}" class="home_img" draggable="false"/>
+                <a href="/post?key={{post.key.urlsafe()}}">
+                <img src="{{post.post_img_url}}" class="home_img" draggable="false">
 
-                <!-- </a> -->
+                </a>
                 {% endfor %}
               </paper-carousel>
               <!-- <h5>By: post.user</h5> -->
