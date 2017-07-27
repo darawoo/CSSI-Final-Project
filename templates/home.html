@@ -46,7 +46,9 @@
 {% endif %}
  <!-- creates the image -->
   <div class = "home-page">
-    <h3>TRENDING:</h3>
+    <div class = "home-word">
+      <h3>TRENDING:</h3>
+    </div>
     <div id = "post-container">
             <div class="container" style="width: 75%; margin: auto">
               <article class="post_home">
@@ -66,7 +68,7 @@
 <!-- Use any element to open the sidenav -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <h3 class="collegeHeader" style="color:white; font-size: 35px"> Colleges: </h3>
+    <h3 class="collegeHeader" style="color:white; font-size: 35px">Colleges:</h3>
             {% for college in colleges %}
               <paper-item><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
             {% endfor %}
