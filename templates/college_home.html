@@ -14,6 +14,8 @@
   <hr>
   <h2>{{college.name}}</h2>
   <img src="{{college.logo_url}}" style="height: 50px;"/>
+  <hr>
+  <a href="#" onclick="openNav()">VIEW COLLEGES</a>
 </div>
 <hr>
 
@@ -38,4 +40,19 @@
   <a href="/add_college">+ Add a College</a>
 </div>
 
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <h3 class="collegeHeader" style="font-size: 35px;">Colleges:</h3>
+          {% for college in colleges %}
+            <paper-item><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
+          {% endfor %}
+            <a href="/add_college">+ Add a College</a>
+</div>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<<<<<<< HEAD
+=======
+<script src="/scripts/photogram.js"></script>
+<script src="/scripts/sidebar.js"></script>
+>>>>>>> 74b20afbb6d5a5e467e8c6489b4926a72424af82
