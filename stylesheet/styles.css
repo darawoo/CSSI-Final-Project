@@ -157,12 +157,11 @@ a:hover h1
 }
 
 .post-comments{
-    margin: 20px;
-
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 500px;
+    padding: 30px;
     align-items: center;
     align-self: center;
 }

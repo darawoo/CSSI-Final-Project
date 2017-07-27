@@ -1,1 +1,1 @@
-$("paper-card div.header img").width(500);
+$("paper-card div.body sizedImgDiv").width(500);
