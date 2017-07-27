@@ -44,12 +44,13 @@
     {% endfor %}
   </div>
 
-  <h3>Colleges:</h3>
-  {% for college in colleges %}
-    <p><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
-  {% endfor %}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/scripts/photogram.js"></script>
+  </nav class="collegeList"
+    <h3 class="collegeListHead">Colleges:</h3>
+    {% for college in colleges %}
+      <a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a><br>
+    {% endfor %}
+    <a href="/add_college">+ Add a College</a>
+  </nav>
 
   {% if current_user %}
   <div class = "user-welcome">
