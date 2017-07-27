@@ -8,7 +8,15 @@
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Buda:300|Droid+Sans" rel="stylesheet">
 <link rel="stylesheet" href="/stylesheet/slide.java">
-
+<!--<base href="http://polygit.org/polymer+:master/components/">-->
+  <script src="http://polygit.org/polymer+:master/components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="http://polygit.org/polymer+:master/components/polymer/polymer-element.html">
+  <link rel="import" href="http://polygit.org/polymer+:master/components/paper-menu-button/paper-menu-button.html">
+  <link rel="import" href="http://polygit.org/polymer+:master/components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="http://polygit.org/polymer+:master/components/paper-listbox/paper-listbox.html">
+  <link rel="import" href="http://polygit.org/polymer+:master/components/paper-item/paper-item.html">
+  <link rel="import" href="http://polygit.org/polymer+:master/components/iron-icons/iron-icons.html">
+  <link rel="import" href="http://polygit.org/polymer+:master/components/iron-icon/iron-icon.html">
 <div class = "mainheader">
   <a href="/" class = "header"><h1>STAND BY MEME</h1></a>
 </div>
@@ -17,8 +25,6 @@
   {% if current_user %}
     <nav>
       <a href="/new_post">NEW POST</a>
-      |
-      <a href="/add_college">ADD COLLEGE</a>
       |
       <a href="{{logout_url}}" class="log">LOGOUT</a>
     </nav>
@@ -47,9 +53,16 @@
   {% endfor %}
 </div>
 
-<h3>Colleges:</h3>
-{% for college in colleges %}
-  <p><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
-{% endfor %}
+
+<paper-listbox>
+  <h3 class="collegeListHead">Colleges:</h3>
+  {% for college in colleges %}
+    <paper-item><a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></paper-item>
+  {% endfor %}
+  <paper-item><a href="/add_college">+ Add a College</a></paper-item>
+</paper-listbox>
+
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/scripts/photogram.js"></script>

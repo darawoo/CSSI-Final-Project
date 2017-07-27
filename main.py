@@ -101,13 +101,13 @@ class PostHandler(webapp2.RequestHandler):
         view = View(user=current_user.email(), post_key=post_key)
         view.put()
         views = View.query().fetch()
-
-        #========================
+        colleges = College.query().fetch()
         template_vars = {
             "post": post,
             "comments": comments,
             "current_user": current_user,
-            'views': views
+            'views': views,
+            'colleges': colleges
         }
         template = jinja_environment.get_template("templates/post.html")
         self.response.write(template.render(template_vars))
@@ -203,9 +203,12 @@ class CollegeHomeHandler(webapp2.RequestHandler):
         college_key = ndb.Key(urlsafe=urlsafe_key)
         college = college_key.get()
         posts = Post.query().filter(Post.college_key==college_key).fetch()
+        colleges = College.query().fetch()
         template_vars = {
             'college': college,
-            'posts': posts
+            'posts': posts,
+            'colleges': colleges
+
         }
         template = jinja_environment.get_template('templates/college_home.html')
         self.response.write(template.render(template_vars))
