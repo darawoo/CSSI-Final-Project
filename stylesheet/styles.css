@@ -2,11 +2,11 @@ body {
       #background-image: url("https://image.freepik.com/free-vector/simple-geometric-background_23-2147489455.jpg");
       background-repeat: no-repeat;
       background-size: cover;
-      background: #DDDFDF
+      background: #fcfcfc;
 }
 
 .post-page{
-  background: #DDDFDF;
+  background: #fcfcfc;
   margin-left:auto;
   margin-right: auto;
   align-content: center;
@@ -22,10 +22,10 @@ body {
 }
 
 .main-content{
-  margin:auto;
-  padding-top: 50px;
-  padding-left: 300px;
-  padding-right: 300px;
+  margin-right:auto;
+  padding-top: 30px;
+  padding-left: 470px;
+  padding-right: 400px;
   padding-bottom: 50px;
   align-items: center;
   align-self: center;
@@ -83,6 +83,10 @@ a:hover
   color: #EF476F;
 }
 
+.home-page{
+  background-color: #fcfcfc;
+}
+
 .new-post-form{
   width: 50%;
   margin: auto;
@@ -95,9 +99,9 @@ a:hover
 .post_header h1 {
   font-family: 'Monoton', cursive;
   text-align: center;
-  font-size: 40px;
+  font-size: 50px;
   color: black;
-  padding: 20px;
+  padding: 10px;
 }
 
 .post_header {
@@ -158,7 +162,7 @@ bower install --save Redbility/paper-carousel
 }
 
 .meme-rating{
-  align-items: center;
+  display: flex;
 }
 
 .post-comments{
@@ -183,7 +187,7 @@ bower install --save Redbility/paper-carousel
   background-color: #EF476F;
 }
 
-.home-page{
+.home-content{
   margin: 30px;
 }
 #post-container{
@@ -285,4 +289,3 @@ bower install --save Redbility/paper-carousel
 .collegeHeader {
   color: white;
 }
->>>>>>> 74b20afbb6d5a5e467e8c6489b4926a72424af82
