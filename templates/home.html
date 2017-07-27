@@ -43,7 +43,7 @@
 </div>
 {% endif %}
  <!-- creates the image -->
-  <div class = "home-page">
+  <!-- <div class = "home-page">
     <h3>TRENDING:</h3>
     <div id = "post-container">
        <div id = "post-container">
@@ -58,7 +58,25 @@
 
               <h5>By: {{post.user}}</h5>
             </article>
-          {% endfor %}
+          {% endfor %} -->
+
+<h3>Trending:</h3>
+  <div class="slideshow-container">
+  {% for post in posts %}
+  <div class="mySlides fade">
+    <a href="/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" style="height:50%; text-align:center;"></a>
+    <div class="by_text">By: {{post.user}}</div>
+  </div>
+  {% endfor %}
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+  <br>
+  <div style="text-align:center">
+  {% for i in range(0, post_count) %}
+    <span class="dot" onclick="currentSlide({{i+1}})"></span>
+  {% endfor %}
+  </div>
           <!-- Use any element to open the sidenav -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -74,3 +92,4 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/scripts/sidebar.js"></script>
+<script src="/scripts/slideshow.js"></script>
