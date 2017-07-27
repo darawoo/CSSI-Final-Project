@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-        <title> STAND BY MEME </title>
 
 <link rel="stylesheet" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Buda:300|Droid+Sans" rel="stylesheet">
+
+  <title> STAND BY MEME </title>
 
 <!--bootstrapping the carosuel-->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -14,15 +15,13 @@
 <style>
         .carousel-inner>.item>img,
         .carousel-inner>.item>a>img {
-            width: 50px;
-            height: 60px;
+            width: 80px;
+            length: 60px;
             margin: auto;
         }
 </style>
 </head>
 <body>
-
-<link rel="stylesheet" href="/stylesheet/slide.java">
 <!--<base href="http://polygit.org/polymer+:master/components/">-->
   <script src="http://polygit.org/polymer+:master/components/webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="http://polygit.org/polymer+:master/components/polymer/polymer-element.html">
@@ -60,6 +59,7 @@
 {% endif %}
 
 <h3>TRENDING:</h3>
+
 <div class="container">
     <br>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -79,6 +79,8 @@
 
               </article>
             {% endfor %}
+
+
 <!-- Left and right controls -->
 <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -89,22 +91,17 @@
     <span class="sr-only">Next</span>
 </a>
 </div>
-
 <h3>Colleges:</h3>
-{% for college in colleges %}
-  <p><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
-{% endfor %}
-
-<paper-listbox>
-  <h3 class="collegeListHead">Colleges:</h3>
-  {% for college in colleges %}
-    <paper-item><a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></paper-item><br>
-  {% endfor %}
-  <paper-item><a href="/add_college">+ Add a College</a></paper-item>
-</paper-listbox>
-
-
-
+        {% for college in colleges %}
+          <p><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
+        {% endfor %}
+        <paper-listbox>
+          <h3 class="collegeListHead">Colleges:</h3>
+          {% for college in colleges %}
+            <paper-item><a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></paper-item><br>
+          {% endfor %}
+          <paper-item><a href="/add_college">+ Add a College</a></paper-item>
+        </paper-listbox>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/scripts/photogram.js"></script>
 </body>
