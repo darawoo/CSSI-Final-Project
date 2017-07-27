@@ -78,6 +78,12 @@ hr {
   margin-right: 10%;
 }
 
+.college-home-content hr {
+  margin: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 nav {
   text-align: center;
   font-size: 20px;
@@ -98,6 +104,10 @@ a:hover
 
 .home-page{
   background-color: #fcfcfc;
+}
+
+.home-word{
+  margin-left: 60px;
 }
 
 .new-post-form{
@@ -131,7 +141,7 @@ a:hover
   font-size: 30px;
   color: black;
   text-decoration: none;
-  margin: 0px;
+  margin: 15px;
 }
 
 .mainheader h1 {
@@ -169,7 +179,7 @@ a:hover h1
 
 .home_img {
   height: 200px;
-  width: 200px;
+  width: 99%;
 }
 .user-welcome{
   text-align: center;
@@ -235,8 +245,7 @@ a:hover h1
   width: 300px;
   margin: 50px;
 }
-<<<<<<< HEAD
-=======
+
 .container>* {S
 
      vertical-align: top;
