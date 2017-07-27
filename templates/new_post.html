@@ -8,6 +8,8 @@
     <link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-input/paper-input.html">
     <link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-button/paper-button.html">
     <link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/iron-icons/maps-icons.html">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
     <div class = "post_header">
       <a href="/" class = "post_header"><h1>STAND BY MEME</h1></a>
@@ -18,14 +20,14 @@
   <body>
     <form class="new-post-form" action = "/new_post" method="post">
       <br>
-      <h2>Name your meme:</h2>
+      <h4>Name your meme:</h4>
       <paper-input always-float-label name ="title" label="Enter Title Here"></paper-input>
 
-      <h2>Caption:</h2>
+      <h4>Caption:</h4>
       <paper-input always-float-label name = "caption" label="Enter Caption Here"></paper-input>
       <br>
 
-      <h2>College:</h2>
+      <h4>College:</h4>
       <select id="college-choice" name="urlsafe_college_key" required>
            <option>Which college do you go to?</option>
 
@@ -35,7 +37,7 @@
       </select>
 
       <br><br>
-      <h2>Input your image url:</h2>
+      <h4>Input your image url:</h4>
 
       <paper-input always-float-label name = "post_img_url" label="Enter Copied Image Address"></paper-input>
       <input type = "submit"></input>

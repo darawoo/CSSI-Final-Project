@@ -59,6 +59,19 @@ h5{
 
 }
 
+.college-home-content h6{
+  font-family: 'Monoton', cursive;
+  text-align: left;
+  font-size: 30px;
+  color: black;
+  text-decoration: none;
+  margin: 0px;
+}
+
+.college-home-content{
+  margin: 30px;
+}
+
 hr {
   margin: 0px;
   margin-left: 10%;
@@ -108,6 +121,10 @@ a:hover
   text-align: center;
 }
 
+.post_header h5{
+  text-align: center;
+  font-size: 30px;
+}
 .home-page h3 {
   font-family: 'Monoton', cursive;
   text-align: left;
@@ -132,6 +149,12 @@ a:hover h1
 }
 
 .post_header {
+  font-family: 'Monoton', cursive;
+  text-align: center;
+  font-size: 40px;
+  color: black;
+  padding: 0px;
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -226,13 +249,6 @@ bower install --save Redbility/paper-carousel
      border: 1px solid ;
      box-shadow: 1px 1px 5px;
      overflow: hidden;
-}
-.collegeList {
-  position: fixed;
-  right: 2%;
-  top: 282px;
-  border-style: solid;
-  padding-left: 7px;
 }
 
 /* The side navigation menu */
