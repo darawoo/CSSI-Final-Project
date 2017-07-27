@@ -30,13 +30,13 @@
   {% endfor %}
 </div>
 
-<paper-listbox>
+</div class="collegeList"
   <h3 class="collegeListHead">Colleges:</h3>
   {% for college in colleges %}
-    <paper-item><a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></paper-item><br>
+    <a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a><br>
   {% endfor %}
-  <paper-item><a href="/add_college">+ Add a College</a></paper-item>
-</paper-listbox>
+  <a href="/add_college">+ Add a College</a>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/scripts/photogram.js"></script>

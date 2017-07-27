@@ -207,18 +207,17 @@ a:hover h1
      vertical-align: top;
 }
 .carouselbox{
-     width: 70px;
+     width: 40px;
      position: center;
      margin: 1em;
      border: 1px solid ;
      box-shadow: 1px 1px 5px;
      overflow: hidden;
 }
-paper-listbox {
+.collegeList {
   position: fixed;
   right: 2%;
   top: 282px;
-  --paper-listbox-background-color: transparent;
   border-style: solid;
   padding-left: 7px;
 }
