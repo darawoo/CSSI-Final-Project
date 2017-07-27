@@ -7,6 +7,7 @@
 
 <link rel="stylesheet" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+<link rel="import" href="https://cdn.rawgit.com/download/polymer-cdn/1.5.0/lib/paper-input/paper-input.html">
 
 <div class = "post_header">
   <a href="/" class = "post_header"><h1>STAND BY MEME</h1></a>
@@ -14,15 +15,15 @@
 <hr>
 
 <form class="add-college"action = "/add_college" method="post">
+  <br>
   <h2>Which college would you like to add?</h2>
-  <input class="align" type="text" name="name" placeholder="Enter College Name Here" style="text-align: center"/>
+  <paper-input always-float-label name ="name" label="Enter College Name Here"></paper-input>
 
   <h2>Where is this college located? (Ex: Sacramento, California)</h2>
-  <input class="align" type="text" name="location" placeholder="Enter City and State Here" style="text-align: center"/>
+  <paper-input always-float-label name ="location" label="Enter City and State Here"></paper-input>
 
   <h2>Input url of college logo:</h2>
-  <input type="text" name="logo_url" placeholder="Logo URL"/>
-  <br><button>Submit</button>
+  <paper-input always-float-label name ="logo_url" label="Enter Copied Image Address"></paper-input>
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
