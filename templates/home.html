@@ -2,7 +2,6 @@
 
 <head>
     <meta charset="utf-8">
-        <title> STAND BY MEME </title>
 </head>
 <link rel="stylesheet" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
@@ -64,20 +63,7 @@
 </div>
 {% endif %}
 <hr>
-  <!--Login/Logout-->
-    {% if current_user %}
-    <nav>
-      <a href="/new_post">NEW POST</a>
-      |
-      <a href="/add_college">ADD COLLEGE</a>
-      |
-      <a href="{{logout_url}}" class="log">LOGOUT</a>
-    </nav>
-    {% else %}
-      <nav>
-        <a href="{{login_url}}" class="welcome">LOGIN</a>
-      </nav>
-    {% endif %}
+
  <!-- creates the image -->
   <hr>
   <div class = "home-page">
@@ -118,13 +104,8 @@
         {% for college in colleges %}
           <p><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
         {% endfor %}
-        <paper-listbox>
-          <h3 class="collegeListHead">Colleges:</h3>
-          {% for college in colleges %}
-            <paper-item><a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></paper-item><br>
-          {% endfor %}
-          <paper-item><a href="/add_college">+ Add a College</a></paper-item>
-        </paper-listbox>
+          <a href="/add_college">+ Add a College</a>
+        </nav>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/scripts/photogram.js"></script>
 <!--bootstrapping the carosuel-->
@@ -132,35 +113,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 
-<<<<<<< HEAD
-=======
-
-
-<div class = "home-page">
-  <h3>TRENDING:</h3>
-  <div id = "post-container">
-    {% for post in posts %}
-      <article class="post_home">
-        <br>
-        <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
-        <h5>By: {{post.user}}</h5>
-      </article>
-    {% endfor %}
-  </div>
-
-  </nav class="collegeList"
-    <h3 class="collegeListHead">Colleges:</h3>
-    {% for college in colleges %}
-      <a href="../college_home?key={{college.key.urlsafe()}}">{{college.name}}</a><br>
-    {% endfor %}
-    <a href="/add_college">+ Add a College</a>
   </nav>
-
-  {% if current_user %}
-  <div class = "user-welcome">
-    <br>
-    <h4>Welcome, {{current_user}}</h4>
-  </div>
-  {% endif %}
->>>>>>> 89f325280cb65230e1bd981e91b2c38ec88e0836
 </div>
