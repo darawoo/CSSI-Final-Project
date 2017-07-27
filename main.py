@@ -68,7 +68,7 @@ class MainHandler(webapp2.RequestHandler):
                     post.put()
         #order trending
         posts = Post.query().order(-Post.recent_view_count).fetch()
-        colleges = College.query().fetch()
+        colleges = College.query().order(College.name).fetch()
         template_vars = {
             "posts": posts,
             "current_user": current_user,
@@ -101,7 +101,7 @@ class PostHandler(webapp2.RequestHandler):
         view = View(user=current_user.email(), post_key=post_key)
         view.put()
         views = View.query().fetch()
-        colleges = College.query().fetch()
+        colleges = College.query().order(College.name).fetch()
         template_vars = {
             "post": post,
             "comments": comments,
@@ -115,7 +115,7 @@ class PostHandler(webapp2.RequestHandler):
 class NewPostHandler(webapp2.RequestHandler):
     def get(self):
         posts = Post.query().order(-Post.post_time).fetch()
-        colleges = College.query().fetch()
+        colleges = College.query().order(College.name).fetch()
         template_vars = {
             'colleges': colleges
         }
