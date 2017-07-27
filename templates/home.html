@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-
 <head>
     <meta charset="utf-8">
         <title> STAND BY MEME </title>
-</head>
+
 <link rel="stylesheet" href="/stylesheet/styles.css">
 <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Buda:300|Droid+Sans" rel="stylesheet">
-<link rel="stylesheet" href="/stylesheet/slide.java">
-
+<!--bootstrapping the carosuel-->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- adding the style of the carousel-->
+<style>
+        .carousel-inner>.item>img,
+        .carousel-inner>.item>a>img {
+            width: 50px;
+            height: 60px;
+            margin: auto;
+        }
+</style>
+</head>
+<body>
 <div class = "mainheader">
   <a href="/" class = "header"><h1>STAND BY MEME</h1></a>
 </div>
@@ -37,19 +48,42 @@
 {% endif %}
 
 <h3>TRENDING:</h3>
-<div id = "post-container">
-  {% for post in posts %}
-    <article class="post_home">
-      <br>
-      <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
-      <h5>By: {{post.user}}</h5>
-    </article>
-  {% endfor %}
+<div class="container">
+    <br>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        </ol>
+          <!-- Wrapper for slides -->
+            {% for post in posts %}
+              <article class="post_home">
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                      <a href = "/post?key={{post.key.urlsafe()}}">
+                        <img src="{{post.post_img_url}}" class="home_img" alt=" SORRY YOH !" width="500" height="600">
+                      </a>
+                <h5>By: {{post.user}}</h5>
+
+              </article>
+            {% endfor %}
+<!-- Left and right controls -->
+<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+</a>
+<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+</a>
 </div>
 
 <h3>Colleges:</h3>
 {% for college in colleges %}
   <p><a href="/college_home?key={{college.key.urlsafe()}}">{{college.name}}</a></p>
 {% endfor %}
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/scripts/photogram.js"></script>
+</body>

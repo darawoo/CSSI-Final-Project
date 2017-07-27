@@ -4,7 +4,6 @@ body {
       background-size: cover;
 
     }
-
 .header {
   font-family: 'Monoton', cursive;
   text-align: center;
@@ -120,4 +119,15 @@ a:hover
 .post-content-right{
   width: 300px;
   margin: 50px;
+}
+.container>* {S
+     vertical-align: top;
+}
+.carouselbox{
+     width: 70px;
+     position: center;
+     margin: 1em;
+     border: 1px solid ;
+     box-shadow: 1px 1px 5px;
+     overflow: hidden;
 }
