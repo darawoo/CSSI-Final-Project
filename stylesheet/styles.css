@@ -7,7 +7,9 @@ body {
 
 .post-page{
   background: #DDDFDF;
-  margin:auto;
+  margin-left:auto;
+  margin-right: auto;
+  align-content: center;
 }
 
 .header {
@@ -157,12 +159,11 @@ bower install --save Redbility/paper-carousel
 }
 
 .post-comments{
-    margin: 20px;
-
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 500px;
+    padding: 30px;
     align-items: center;
     align-self: center;
 }
