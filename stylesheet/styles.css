@@ -4,7 +4,6 @@ body {
       background-size: cover;
 
     }
-
 .header {
   font-family: 'Monoton', cursive;
   text-align: center;
@@ -121,15 +120,14 @@ a:hover
   width: 300px;
   margin: 50px;
 }
-
-paper-listbox {
-  position: fixed;
-  right: 2%;
-  top: 282px;
-  --paper-listbox-background-color: transparent;
-  border-style: solid;
-  padding-left: 7px;
+.container>* {S
+     vertical-align: top;
 }
-
-#collegeListHead {
+.carouselbox{
+     width: 70px;
+     position: center;
+     margin: 1em;
+     border: 1px solid ;
+     box-shadow: 1px 1px 5px;
+     overflow: hidden;
 }
