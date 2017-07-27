@@ -37,24 +37,23 @@
     <hr>
     <div class = "home-page">
         <h3>TRENDING:</h3>
-            <div id = "post-container">
-              {% for post in posts %}
-                <div class="container">
-                  <article class="post_home">
-                    <a href = "/post?key={{post.key.urlsafe()}}">
-                  <paper-carousel items="5" dotText="false">
-                        <img src="{{post.post_img_url}}" class="home_img" width="10px"draggable="false"/>
-                        <img src="{{post.post_img_url}}" class="home_img" width="10px"draggable="false"/>
-                        <img src="{{post.post_img_url}}" class="home_img" width="10px"draggable="false"/>
-                        <img src="{{post.post_img_url}}" class="home_img" width="10px"draggable="false"/>
-                        <img src="{{post.post_img_url}}" class="home_img" width="10px"draggable="false"/>
-                  </paper-carousel>
-                  <br>
-                  <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
-                  <h5>By: {{post.user}}</h5>
-                </article>
-              {% endfor %}
-
+    <!--  <div id = "post-container">
+        {% for post in posts %}
+          <div class="container">
+            <article class="post_home">
+              <a href = "/post?key={{post.key.urlsafe()}}">
+            <paper-carousel items="1" dotText="false">
+                  <img src="{{post.post_img_url}}" class="home_img" width="5px"length="9px"draggable="false"/>
+                  <img src="{{post.post_img_url}}" class="home_img" width="5px"length="9px"draggable="false"/>
+                  <img src="{{post.post_img_url}}" class="home_img" width="5px"length="9px"draggable="false"/>
+                  <img src="{{post.post_img_url}}" class="home_img" width="5px"length="9px"draggable="false"/>
+                  <img src="{{post.post_img_url}}" class="home_img" width="5px"length="9px"draggable="false"/>
+            </paper-carousel>
+            <br>
+            <a href = "/post?key={{post.key.urlsafe()}}"><img src="{{post.post_img_url}}" class="home_img"></a>
+            <h5>By: {{post.user}}</h5>
+          </article>
+        {% endfor %}-->
 </body>
 </nav>
 </div>

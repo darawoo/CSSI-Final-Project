@@ -137,9 +137,8 @@ a:hover h1
 }
 bower install --save Redbility/paper-carousel
 .home_img {
-  height: 10px;
-  length: 10px;
-
+  height: 0px;
+  length: 0px;
 }
 
 .user-welcome{
