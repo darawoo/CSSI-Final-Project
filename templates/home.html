@@ -17,6 +17,7 @@
   <link rel="import" href="http://polygit.org/polymer+:master/components/paper-item/paper-item.html">
   <link rel="import" href="http://polygit.org/polymer+:master/components/iron-icons/iron-icons.html">
   <link rel="import" href="http://polygit.org/polymer+:master/components/iron-icon/iron-icon.html">
+
 <div class = "mainheader">
   <a href="/" class = "header"><h1>STAND BY MEME</h1></a>
 </div>
@@ -29,6 +30,7 @@
       <a href="{{logout_url}}" class="log">LOGOUT</a>
     </nav>
   {% else %}
+    <nav>
       <a href="{{login_url}}" class="welcome">LOGIN</a>
     </nav>
   {% endif %}
