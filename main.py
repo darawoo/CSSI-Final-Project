@@ -148,6 +148,7 @@ class NewCommentHandler(webapp2.RequestHandler):
         urlsafe_key = self.request.get("post_key")
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe=urlsafe_key)
+        post = post_key.get()
         #3. Creating Post
         comment = Comment(user=user,content=content, post_key=post_key)
         comment.put()
