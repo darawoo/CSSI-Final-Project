@@ -35,10 +35,12 @@ class Comment(ndb.Model):
     post_time = ndb.DateTimeProperty(auto_now_add = True)
     post_key = ndb.KeyProperty(kind=Post)
 
-class Like(ndb.Model):
+class LikeType(ndb.Model):
     user = ndb.StringProperty()
     post_key = ndb.KeyProperty(kind=Post)
-    like_type = ndb.BooleanProperty()
+    rating_type = ndb.BooleanProperty()
+    like_time = ndb.DateTimeProperty(auto_now_add=True)
+    #true = like, false = dislike
 
 class View(ndb.Model):
     user = ndb.StringProperty()
@@ -157,21 +159,27 @@ class NewCommentHandler(webapp2.RequestHandler):
 
 class LikeHandler(webapp2.RequestHandler):
     def post(self):
-        user = ndb.StringProperty()
-        user = users.get_current_user().email()
+        current_user = users.get_current_user().email()
+
         #1. Getting information from the request
         urlsafe_key = self.request.get("post_key")
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
+        like = LikeType.query().filter(ndb.AND(LikeType.post_key == post_key, LikeType.user == current_user)).order(-LikeType.like_time).get()
+        if like:
+            if like.rating_type == False:
+                post.dislike_count = post.dislike_count - 1
+                post.like_count = post.like_count + 1
+                post.put()
+                like = LikeType(user=current_user, rating_type=True, post_key=post_key)
+                like.put()
+        else:
+            post.like_count = post.like_count + 1
+            post.put()
+            like = LikeType(user=current_user, rating_type=True, post_key=post_key)
+            like.put()
 
-        if post.like_count == None:
-            post.like_count = 0
-
-         # Increase the photo count and update the database.
-
-        post.like_count = post.like_count + 1
-        post.put()
 
         # === 3: Send a response. ===
         # Send the updated count back to the client.
@@ -180,21 +188,28 @@ class LikeHandler(webapp2.RequestHandler):
 
 class DislikeHandler(webapp2.RequestHandler):
     def post(self):
-        user = ndb.StringProperty()
-        user = users.get_current_user().email()
+        current_user = users.get_current_user().email()
         #1. Getting information from the request
         urlsafe_key = self.request.get("post_key")
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe = urlsafe_key)
         post = post_key.get()
-
-        if post.dislike_count == None:
-            post.dislike_count = 0
+        like = LikeType.query().filter(ndb.AND(LikeType.post_key == post_key, LikeType.user == current_user)).order(-LikeType.like_time).get()
+        if like:
+            if like.rating_type == True:
+                post.like_count = post.like_count - 1
+                post.dislike_count = post.dislike_count + 1
+                post.put()
+                like = LikeType(user=current_user, rating_type=False, post_key=post_key)
+                like.put()
+        else:
+            post.dislike_count = post.dislike_count + 1
+            post.put()
+            like = LikeType(user=current_user, rating_type=False, post_key=post_key)
+            like.put()
 
          # Increase the photo count and update the database.
 
-        post.dislike_count = post.dislike_count + 1
-        post.put()
 
         # === 3: Send a response. ===
         # Send the updated count back to the client.
