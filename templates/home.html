@@ -40,7 +40,6 @@
 <hr>
 {% if current_user %}
 <div class = "user-welcome">
-  <br>
   <h4>Welcome, {{current_user}}</h4>
 </div>
 {% endif %}
@@ -50,21 +49,23 @@
       <h3>TRENDING:</h3>
     </div>
     <div id = "post-container">
-            <div class="container" style="width: 75%; margin: auto">
-              <article class="post_home">
-              <!-- <paper-carousel items="1" responsive="600:2, 460:1" controls="true" dots="true" dotText="false"> -->
-              <paper-carousel items="3" responsive="600:2, 460:1" controls="true" dots="true" dotText="false">
-                {% for post in posts %}
+            <div class="container" style="width: 95%"; "margin: auto">
+                <article class="post_home">
+                <!-- <paper-carousel items="1" responsive="600:2, 460:1" controls="true" dots="true" dotText="false"> -->
+                <paper-carousel items="3" responsive="600:2, 460:1" controls="true" dots="true" dotText="false">
+                  {% for post in posts %}
+              <a href="/post?key={{post.key.urlsafe()}}">
+                  <img src="{{post.post_img_url}}" class="home_img" draggable="false">
 
-                <a href="/post?key={{post.key.urlsafe()}}">
-                <img src="{{post.post_img_url}}" class="home_img" draggable="false">
+                  </a>
 
-                </a>
-                {% endfor %}
-              </paper-carousel>
-              <!-- <h5>By: post.user</h5> -->
-            </article>
-
+                  {% endfor %}
+                </paper-carousel>
+                <!-- <h5>By: post.user</h5> -->
+              </article>
+            </div>
+    </div>
+  </div>
 <!-- Use any element to open the sidenav -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
