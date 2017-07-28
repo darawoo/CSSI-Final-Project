@@ -270,8 +270,9 @@ a:hover h1
     left: 0;
     background-color: #111; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
+    padding-top: 10px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    /*padding-bottom: 15px;*/
 }
 
 /* The navigation menu links */
@@ -313,4 +314,9 @@ a:hover h1
 
 .collegeHeader {
   color: white;
+}
+
+.add_college_sidebar {
+  margin-bottom: 1000px;
+  padding-bottom:
 }

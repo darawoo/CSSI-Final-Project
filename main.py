@@ -72,7 +72,7 @@ class MainHandler(webapp2.RequestHandler):
                     post.put()
         #order trending
         posts = Post.query().order(-Post.recent_view_count).fetch()
-        colleges = College.query().order(College.name).fetch()
+        colleges = College.query().order(-College.name).fetch()
         post_count = 0
         for post in posts:
             post_count += 1
@@ -239,7 +239,7 @@ class CollegeHomeHandler(webapp2.RequestHandler):
                     post.put()
         #order trending
         posts = Post.query().filter(Post.college_key==college_key).order(-Post.recent_view_count).fetch()
-        colleges = College.query().fetch()
+        colleges = College.query().order(-College.name).fetch()
         template_vars = {
             'college': college,
             'posts': posts,
