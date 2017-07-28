@@ -69,12 +69,16 @@ class MainHandler(webapp2.RequestHandler):
         #order trending
         posts = Post.query().order(-Post.recent_view_count).fetch()
         colleges = College.query().order(College.name).fetch()
+        post_count = 0
+        for post in posts:
+            post_count += 1
         template_vars = {
             "posts": posts,
             "current_user": current_user,
             "logout_url": logout_url,
             "login_url": login_url,
-            "colleges": colleges
+            "colleges": colleges,
+            'post_count': post_count
         }
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
@@ -208,7 +212,6 @@ class CollegeHomeHandler(webapp2.RequestHandler):
             'college': college,
             'posts': posts,
             'colleges': colleges
-
         }
         template = jinja_environment.get_template('templates/college_home.html')
         self.response.write(template.render(template_vars))
@@ -231,6 +234,43 @@ class AddCollegeHomeHandler(webapp2.RequestHandler):
         college.put()
         self.redirect('/')
 
+class TestHandler(webapp2.RequestHandler):
+    def get(self):
+        post_query = Post.query()
+        posts = post_query.fetch()
+        current_user = users.get_current_user()
+        login_url = users.create_login_url('/')
+        logout_url = users.create_logout_url('/')
+        #===trending calculations===
+        views = View.query().fetch()
+        time_difference = datetime.datetime.now() - datetime.timedelta(hours=2)
+        for post in posts:
+            post_key = post.key.urlsafe()
+            post.recent_view_count = 0
+            for view in views:
+                if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
+                    post.recent_view_count += 1
+                    post.put()
+        #order trending
+        posts = Post.query().order(-Post.recent_view_count).fetch()
+        colleges = College.query().order(College.name).fetch()
+
+        #==============!!!!!!NEW STUFF!!!!!!============
+        post_count = 0
+        for post in posts:
+            post_count += 1
+
+        template_vars = {
+            "posts": posts,
+            "current_user": current_user,
+            "logout_url": logout_url,
+            "login_url": login_url,
+            "colleges": colleges,
+            "post_count": post_count
+        }
+        template = jinja_environment.get_template('templates/this_is_only_a_test.html')
+        self.response.write(template.render(template_vars))
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/post', PostHandler),
@@ -239,5 +279,6 @@ app = webapp2.WSGIApplication([
     ('/like', LikeHandler),
     ('/dislike', DislikeHandler),
     ('/college_home', CollegeHomeHandler),
-    ('/add_college', AddCollegeHomeHandler)
+    ('/add_college', AddCollegeHomeHandler),
+    ('/only_a_test', TestHandler)
 ], debug=True)
