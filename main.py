@@ -53,36 +53,18 @@ class View(ndb.Model):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        post_query = Post.query()
-        posts = post_query.fetch()
         current_user = users.get_current_user()
         login_url = users.create_login_url('/')
         logout_url = users.create_logout_url('/')
-        #===trending calculations===
-        views = View.query().fetch()
-        time_difference = datetime.datetime.now() - datetime.timedelta(hours=2)
-        for post in posts:
-            post_key = post.key.urlsafe()
-            post.recent_view_count = 0
-            for view in views:
-                if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
-                    post.recent_view_count += 1
-                    like_delta = post.like_count - post.dislike_count
-                    post.recent_view_count = post.recent_view_count * like_delta
-                    post.put()
         #order trending
         posts = Post.query().order(-Post.recent_view_count).fetch()
         colleges = College.query().order(College.name).fetch()
-        post_count = 0
-        for post in posts:
-            post_count += 1
         template_vars = {
             "posts": posts,
             "current_user": current_user,
             "logout_url": logout_url,
             "login_url": login_url,
-            "colleges": colleges,
-            'post_count': post_count
+            "colleges": colleges
         }
         template = jinja_environment.get_template('templates/home.html')
         self.response.write(template.render(template_vars))
@@ -109,8 +91,21 @@ class PostHandler(webapp2.RequestHandler):
         if current_user:
             view = View(user=current_user.email(), post_key=post_key)
             view.put()
+            #===trending calculations===
         views = View.query().fetch()
         colleges = College.query().order(College.name).fetch()
+        views = View.query().fetch()
+        time_difference = datetime.datetime.now() - datetime.timedelta(hours=2)
+        # for post in posts:
+        post_key = post.key.urlsafe()
+        post.recent_view_count = 0
+        for view in views:
+            if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
+                post.recent_view_count += 1
+                like_delta = post.like_count - post.dislike_count
+                post.recent_view_count = post.recent_view_count * like_delta
+                post.put()
+
         template_vars = {
             "post": post,
             "comments": comments,
@@ -153,7 +148,6 @@ class NewCommentHandler(webapp2.RequestHandler):
         urlsafe_key = self.request.get("post_key")
         #2. Interacting with our Database and APIs
         post_key = ndb.Key(urlsafe=urlsafe_key)
-        post = post_key.get()
         #3. Creating Post
         comment = Comment(user=user,content=content, post_key=post_key)
         comment.put()
@@ -224,19 +218,6 @@ class CollegeHomeHandler(webapp2.RequestHandler):
         urlsafe_key = self.request.get('key')
         college_key = ndb.Key(urlsafe=urlsafe_key)
         college = college_key.get()
-        views = View.query().fetch()
-        time_difference = datetime.datetime.now() - datetime.timedelta(hours=2)
-        post_query = Post.query()
-        posts = post_query.fetch()
-        for post in posts:
-            post_key = post.key.urlsafe()
-            post.recent_view_count = 0
-            for view in views:
-                if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
-                    post.recent_view_count += 1
-                    like_delta = post.like_count - post.dislike_count
-                    post.recent_view_count = post.recent_view_count * like_delta
-                    post.put()
         #order trending
         posts = Post.query().filter(Post.college_key==college_key).order(-Post.recent_view_count).fetch()
         colleges = College.query().order(College.name).fetch()
@@ -266,43 +247,6 @@ class AddCollegeHomeHandler(webapp2.RequestHandler):
         college.put()
         self.redirect('/')
 
-class TestHandler(webapp2.RequestHandler):
-    def get(self):
-        post_query = Post.query()
-        posts = post_query.fetch()
-        current_user = users.get_current_user()
-        login_url = users.create_login_url('/')
-        logout_url = users.create_logout_url('/')
-        #===trending calculations===
-        views = View.query().fetch()
-        time_difference = datetime.datetime.now() - datetime.timedelta(hours=2)
-        for post in posts:
-            post_key = post.key.urlsafe()
-            post.recent_view_count = 0
-            for view in views:
-                if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
-                    post.recent_view_count += 1
-                    post.put()
-        #order trending
-        posts = Post.query().order(-Post.recent_view_count).fetch()
-        colleges = College.query().order(College.name).fetch()
-
-        #==============!!!!!!NEW STUFF!!!!!!============
-        post_count = 0
-        for post in posts:
-            post_count += 1
-
-        template_vars = {
-            "posts": posts,
-            "current_user": current_user,
-            "logout_url": logout_url,
-            "login_url": login_url,
-            "colleges": colleges,
-            "post_count": post_count
-        }
-        template = jinja_environment.get_template('templates/this_is_only_a_test.html')
-        self.response.write(template.render(template_vars))
-
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/post', PostHandler),
@@ -311,6 +255,5 @@ app = webapp2.WSGIApplication([
     ('/like', LikeHandler),
     ('/dislike', DislikeHandler),
     ('/college_home', CollegeHomeHandler),
-    ('/add_college', AddCollegeHomeHandler),
-    ('/only_a_test', TestHandler)
+    ('/add_college', AddCollegeHomeHandler)
 ], debug=True)
