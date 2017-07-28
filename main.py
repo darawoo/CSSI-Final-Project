@@ -67,6 +67,8 @@ class MainHandler(webapp2.RequestHandler):
             for view in views:
                 if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
                     post.recent_view_count += 1
+                    like_delta = post.like_count - post.dislike_count
+                    post.recent_view_count = post.recent_view_count * like_delta
                     post.put()
         #order trending
         posts = Post.query().order(-Post.recent_view_count).fetch()
