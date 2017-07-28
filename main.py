@@ -104,8 +104,9 @@ class PostHandler(webapp2.RequestHandler):
         post.view_count += 1
         post.put()
         views = View.query().fetch()
-        view = View(user=current_user.email(), post_key=post_key)
-        view.put()
+        if current_user:
+            view = View(user=current_user.email(), post_key=post_key)
+            view.put()
         views = View.query().fetch()
         colleges = College.query().order(College.name).fetch()
         template_vars = {
