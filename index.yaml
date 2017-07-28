@@ -27,3 +27,9 @@ indexes:
   - name: user
   - name: like_time
     direction: desc
+
+- kind: Post
+  properties:
+  - name: college_key
+  - name: recent_view_count
+    direction: desc

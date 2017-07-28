@@ -224,7 +224,21 @@ class CollegeHomeHandler(webapp2.RequestHandler):
         urlsafe_key = self.request.get('key')
         college_key = ndb.Key(urlsafe=urlsafe_key)
         college = college_key.get()
-        posts = Post.query().filter(Post.college_key==college_key).fetch()
+        views = View.query().fetch()
+        time_difference = datetime.datetime.now() - datetime.timedelta(hours=2)
+        post_query = Post.query()
+        posts = post_query.fetch()
+        for post in posts:
+            post_key = post.key.urlsafe()
+            post.recent_view_count = 0
+            for view in views:
+                if view.post_key.urlsafe() == post_key and view.view_time > time_difference:
+                    post.recent_view_count += 1
+                    like_delta = post.like_count - post.dislike_count
+                    post.recent_view_count = post.recent_view_count * like_delta
+                    post.put()
+        #order trending
+        posts = Post.query().filter(Post.college_key==college_key).order(-Post.recent_view_count).fetch()
         colleges = College.query().fetch()
         template_vars = {
             'college': college,
