@@ -50,21 +50,26 @@
       <h3>TRENDING:</h3>
     </div>
     <div id = "post-container">
-            <div class="container" style="width: 75%; margin: auto">
+            <div class="container" style="width: 95%"; "margin: auto">
               <article class="post_home">
               <!-- <paper-carousel items="1" responsive="600:2, 460:1" controls="true" dots="true" dotText="false"> -->
               <paper-carousel items="3" responsive="600:2, 460:1" controls="true" dots="true" dotText="false">
                 {% for post in posts %}
+<<<<<<< HEAD
+                <!-- <a href="/post?key={{post.key.urlsafe()}}"> -->
+                <img src="{{post.post_img_url}}" class="home_img" draggable="false"/>
+                <!-- </a> -->
+=======
 
                 <a href="/post?key={{post.key.urlsafe()}}">
                 <img src="{{post.post_img_url}}" class="home_img" draggable="false">
 
                 </a>
+>>>>>>> c79a5ea0a597cb3c89dea93aac83cefa6b4ee34d
                 {% endfor %}
               </paper-carousel>
               <!-- <h5>By: post.user</h5> -->
             </article>
-
 <!-- Use any element to open the sidenav -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>

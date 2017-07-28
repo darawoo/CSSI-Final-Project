@@ -178,8 +178,8 @@ a:hover h1
 }
 
 .home_img {
-  height: 200px;
-  width: 99%;
+  height: 400px;
+  width:  400px;
 }
 .user-welcome{
   text-align: center;
@@ -245,9 +245,13 @@ a:hover h1
   width: 300px;
   margin: 50px;
 }
+<<<<<<< HEAD
+.container>* {
+=======
 
 .container>* {S
 
+>>>>>>> c79a5ea0a597cb3c89dea93aac83cefa6b4ee34d
      vertical-align: top;
 }
 .carouselbox{
