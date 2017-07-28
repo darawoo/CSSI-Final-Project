@@ -168,8 +168,8 @@ a:hover h1
 }
 
 .home_img {
-  height: 200px;
-  width: 200px;
+  height: 400px;
+  width:  400px;
 }
 .user-welcome{
   text-align: center;
@@ -235,10 +235,7 @@ a:hover h1
   width: 300px;
   margin: 50px;
 }
-<<<<<<< HEAD
-=======
-.container>* {S
-
+.container>* {
      vertical-align: top;
 }
 .carouselbox{
